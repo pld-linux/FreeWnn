@@ -443,10 +443,10 @@ fi
 
 %files common
 %defattr(644,root,root,755)
-%doc CONTRIBUTORS.gz ChangeLog.en.gz
-%doc Xwmnmo/manual.en
-%lang(ja) %doc ChangeLog.gz
-%lang(ja) %doc Xwmnmo/manual
+%doc CONTRIBUTORS ChangeLog.en
+%doc Xwnmo/manual.en
+%lang(ja) %doc ChangeLog
+%lang(ja) %doc Wnn/manual
 %dir %{_sysconfdir}
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/[cs]*
 %dir /var/lib/wnn
