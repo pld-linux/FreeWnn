@@ -278,16 +278,6 @@ ln -sf /var/lib/wnn/zh_TW/dic $RPM_BUILD_ROOT%{_sysconfdir}/zh_TW/dic
 ln -sf /var/lib/wnn/ko_KR/dic $RPM_BUILD_ROOT%{_sysconfdir}/ko_KR/dic
 
 mv -f Wnn-consortium/dic/README README.Wnn-consortium.dic
-gzip -df Wnn/manual.en/5.op/*.Z cWnn/manual.en/*.Z
-gzip -9nf CONTRIBUTORS ChangeLog.en ChangeLog \
-	Contrib/dic/gerodic/GERODIC \
-	PubdicPlus/PUBDICPLUS* \
-	Wnn/manual/{intro,[014567v]*/*,2.env/{Intro,[cw]*/*}} \
-	Wnn/manual/3.libwnn/{Intro,include,j_intro,*_lib/*} \
-	Wnn/manual.en/{2.env/wnn/*,[456]*/*} \
-	README.Wnn-consortium.dic \
-	Xwnmo/manual/*/* Xwnmo/manual.en/*/* \
-	cWnn/manual/* cWnn/manual.en/*
 	
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -400,7 +390,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc Contrib/dic/gerodic/GERODIC.gz PubdicPlus/PUBDICPLUS-README
+%doc Contrib/dic/gerodic/GERODIC PubdicPlus/PUBDICPLUS-README
 %doc Wnn/manual.en
 %lang(ja) %doc PubdicPlus/PUBDICPLUS-ERRATA PubdicPlus/PUBDICPLUS-README.jp
 %lang(ja) %doc README.Wnn-consortium.dic
