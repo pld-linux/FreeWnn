@@ -27,7 +27,10 @@ else
 	exit 0
 fi
 
-[ -f /etc/FreeWnn/ja/jserverrc ] || exit 1
+if [ -f /etc/FreeWnn/ja/jserverrc ]; then
+	nls "%s config %s does not exist." FreeWnn /etc/FreeWnn/ja/jserverrc
+	exit 6
+fi
 
 RETVAL=0
 # See how we were called.
