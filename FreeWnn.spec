@@ -90,7 +90,11 @@ Statyczna wersja biblioteki FreeWnn.
 Summary:	Common files for Wnn
 Summary(pl):	Wspólne pliki Wnn
 Group:		Applications/System
-Requires(pre):	user-wnn
+Requires(pre): /bin/id
+Requires(pre): /usr/sbin/groupadd
+Requires(pre): /usr/sbin/useradd
+Requires(postun):      /usr/sbin/userdel
+Requires(postun):      /usr/sbin/groupdel
 
 %description common
 FreeWnn-common includes the files you need to run FreeWnn, cWnn or
@@ -359,6 +363,30 @@ fi
 
 %post	-n kWnn-libs -p /sbin/ldconfig
 %postun	-n kWnn-libs -p /sbin/ldconfig
+
+%pre common
+if [ -n "`getgid wnn`" ]; then
+       if [ "`getgid wnn`" != "42" ]; then
+               echo "Warning: group wnn doesn't have gid=42. Correct this before installing FreeWnn." 1>&2
+               exit 1
+       fi
+else
+       /usr/sbin/groupadd -g 42 -r -f wnn
+fi
+if [ -n "`id -u wnn 2>/dev/null`" ]; then
+       if [ "`id -u wnn`" != "42" ]; then
+               echo "Warning: user wnn doesn't have uid=42. Correct this before installing FreeWnn." 1>&2
+               exit 1
+       fi
+else
+       /usr/sbin/useradd -M -u 42 -c "Wnn Service User" -g wnn -s /bin/false wnn 1>&2
+fi
+
+%postun common
+if [ "$1" = "0" ]; then
+       /usr/sbin/userdel wnn
+       /usr/sbin/groupdel wnn
+fi
 
 %files
 %defattr(644,root,root,755)
