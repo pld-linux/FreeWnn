@@ -9,6 +9,7 @@ Epoch:		1
 Group:		Applications/System
 License:	GPL
 Source0:	ftp://ftp.freewnn.org/pub/FreeWnn/alpha/%{name}-%{upver}-a%{alpha}.tar.bz2
+# Source0-md5:	e4a56cd7373736c090c6b93a255b950b
 Source1:	%{name}.init
 Source2:	%{name}-cWnn.init
 Source3:	%{name}-tWnn.init
