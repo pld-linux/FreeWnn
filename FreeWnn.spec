@@ -428,9 +428,9 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libjd.la
+%{_libdir}/libjd.la
 %attr(755,root,root) %{_libdir}/libjd.so
-%attr(755,root,root) %{_libdir}/libwnn.la
+%{_libdir}/libwnn.la
 %attr(755,root,root) %{_libdir}/libwnn.so
 %{_includedir}/wnn
 %lang(ja) %{_mandir}/ja/man3/*
@@ -487,7 +487,7 @@ fi
 
 %files -n cWnn-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcwnn.la
+%{_libdir}/libcwnn.la
 %attr(755,root,root) %{_libdir}/libcwnn.so
 %{_includedir}/cwnn
 
@@ -536,7 +536,7 @@ fi
 
 %files -n kWnn-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkwnn.la
+%{_libdir}/libkwnn.la
 %attr(755,root,root) %{_libdir}/libkwnn.so
 %{_includedir}/kwnn
 
