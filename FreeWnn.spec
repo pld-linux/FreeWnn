@@ -248,7 +248,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
 %patch6 -p2
 
 %build
-libtoolize --copy --force
+%{__libtoolize}
 aclocal
 %{__autoconf}
 %configure
