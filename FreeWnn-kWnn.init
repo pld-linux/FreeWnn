@@ -28,6 +28,7 @@ fi
 
 [ -f /etc/FreeWnn/ko_KR/kserverrc ] || exit 1
 
+RETVAL=0
 # See how we were called.
 case "$1" in
     start)
@@ -37,36 +38,33 @@ case "$1" in
 		( su - wnn -s /bin/sh -c '/usr/bin/kserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/kWnn
-		exit $RETVAL
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/kWnn || RETVAL=1
 	else
 		msg_already_running kWnn
-		exit 1
 	fi
 	;;
     stop)
 	if [ -f /var/lock/subsys/kWnn ]; then
 		msg_stopping kWnn
 		killproc kserver
-		RETVAL=$?
 		rm -f /var/lock/subsys/kWnn /tmp/jd_sockV4
-		exit $RETVAL
 	else
 		msg_not_running kWnn
-		exit 1
 	fi
 	;;
     status)
 	status kserver
+	exit $?
 	;;
-    restart|reload)
+    restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
     *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 	;;
 esac
 
-exit 0
+exit $RETVAL

@@ -28,45 +28,44 @@ fi
 
 [ -f /etc/FreeWnn/zh_CN/cserverrc ] || exit 1
 
+RETVAL=0
 # See how we were called.
 case "$1" in
-    start)
+  start)
 	if [ ! -f /var/lock/subsys/cWnn ]; then
 		msg_starting cWnn
 		rm -f /tmp/jd_sockV4
 		( su - wnn -s /bin/sh -c '/usr/bin/cserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cWnn
-		exit $RETVAL
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cWnn || RETVAL=1
 	else
 		msg_already_running cWnn
-		exit 1
 	fi
 	;;
-    stop)
+  stop)
 	if [ -f /var/lock/subsys/cWnn ]; then
 		msg_stopping cWnn
 		killproc cserver
-		RETVAL=$?
 		rm -f /var/lock/subsys/cWnn /tmp/jd_sockV4
 		exit $RETVAL
 	else
 		msg_not_running cWnn
-		exit 1
 	fi
 	;;
-    status)
+  status)
 	status cserver
+	exit $?
 	;;
-    restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
-    *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+  *)
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 	;;
 esac
 
-exit 0
+exit $RETVAL

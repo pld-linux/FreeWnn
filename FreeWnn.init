@@ -29,6 +29,7 @@ fi
 
 [ -f /etc/FreeWnn/ja/jserverrc ] || exit 1
 
+RETVAL=0
 # See how we were called.
 case "$1" in
     start)
@@ -38,36 +39,33 @@ case "$1" in
 		( su - wnn -s /bin/sh -c '/usr/bin/jserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/FreeWnn
-		exit $RETVAL
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/FreeWnn || RETVAL=1
 	else
 		msg_already_running FreeWnn
-		exit 1
 	fi
 	;;
     stop)
 	if [ -f /var/lock/subsys/FreeWnn ]; then
 		msg_stopping FreeWnn
 		killproc jserver
-		RETVAL=$?
 		rm -f /var/lock/subsys/FreeWnn /tmp/jd_sockV4
-		exit $RETVAL
 	else
 		msg_not_running FreeWnn
-		exit 1
 	fi
 	;;
     status)
 	status jserver
+	exit $?
 	;;
-    restart|reload)
+    restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
     *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 	;;
 esac
 
-exit 0
+exit $RETVAL
