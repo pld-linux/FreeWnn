@@ -18,9 +18,13 @@
 [ -f /etc/sysconfig/FreeWnn ] && . /etc/sysconfig/FreeWnn
 
 # Check that networking is up.
-if is_no "${NETWORKING}"; then
-	msg_network_down FreeWnn
-	exit 1
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		msg_network_down FreeWnn
+		exit 1
+	fi
+else
+	exit 0
 fi
 
 [ -f /etc/FreeWnn/ja/jserverrc ] || exit 1
@@ -61,7 +65,7 @@ case "$1" in
 	$0 start
 	;;
     *)
-	msg_usage "$0 {start|stop|status|restart|reload}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 	;;
 esac

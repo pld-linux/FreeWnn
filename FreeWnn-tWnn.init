@@ -17,9 +17,13 @@
 [ -f /etc/sysconfig/tWnn ] && . /etc/sysconfig/tWnn
 
 # Check that networking is up.
-if is_no "${NETWORKING}"; then
-	msg_network_down tWnn
-	exit 1
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		msg_network_down tWnn
+		exit 1
+	fi
+else
+	exit 0
 fi
 
 [ -f /etc/FreeWnn/zh_TW/tserverrc ] || exit 1
@@ -60,8 +64,8 @@ case "$1" in
 	$0 start
 	;;
     *)
-	msg_usage "$0 {start|stop|status|restart|reload}"
-        exit 1
+	msg_usage "$0 {start|stop|restart|reload|status}"
+	exit 1
 	;;
 esac
 
