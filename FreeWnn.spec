@@ -250,7 +250,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
 %build
 libtoolize --copy --force
 aclocal
-autoconf
+%{__autoconf}
 %configure
 
 %{__make} CDEBUGFLAGS="%{rpmcflags} -I/usr/include/ncurses"
