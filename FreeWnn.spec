@@ -249,7 +249,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
 
 %build
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %configure
 
