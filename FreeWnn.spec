@@ -24,7 +24,7 @@ Patch6:		%{name}-manpaths.patch
 URL:		http://www.freewnn.org/
 PreReq:		%{name}-common = %{version}
 Requires:	setup >= 2.4.1
-Requires:	%{name}-libs = %{version}
+Requires:	%{name}-libs = %{epoch}:%{version}
 Requires(post,preun):	/sbin/chkconfig
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -65,7 +65,7 @@ Ten pakiet zawiera biblioteki wspó³dzielone FreeWnn.
 Summary:	Header files for FreeWnn
 Summary(pl):	Pliki nag³ówkowe FreeWnn
 Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}
+Requires:	%{name}-libs = %{epoch}:%{version}
 
 %description devel
 This package contains the header files for building programs with use
@@ -79,7 +79,7 @@ u¿ywaj±cych FreeWnn.
 Summary:	Static FreeWnn library
 Summary(pl):	Statyczna biblioteka FreeWnn
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{epoch}:%{version}
 
 %description static
 Static version of FreeWnn library.
@@ -125,7 +125,7 @@ wersji dla Chin.
 Summary:	cWnn/tWnn Chinese Input System common files
 Summary(pl):	Wspólne pliki systemu wprowadzania znaków chiñskich cWnn/tWnn
 Group:		Applications/System
-Requires:	%{name}-common = %{version}
+Requires:	%{name}-common = %{epoch}:%{version}
 Requires:	cWnn-libs = %{version}
 
 %description -n cWnn-common
