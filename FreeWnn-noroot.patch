@@ -1,0 +1,282 @@
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Contrib/dic/gerodic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Contrib/dic/gerodic/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Contrib/dic/gerodic/Makefile.in	Sun Jan 16 08:30:00 2000
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Contrib/dic/gerodic/Makefile.in	Sun Mar 10 12:20:30 2002
+@@ -62,9 +62,7 @@
+ install:: ${OBJ}
+ 	@if [ -d $(DESTDIR)$(GERODIR) ]; then set +x; \
+ 	else (set -x; $(MKDIRHIER) $(DESTDIR)$(GERODIR)); fi
+-	chown ${WNNOWNER} $(DESTDIR)$(GERODIR)
+-	@INSTALL@ $(INSTALLFLAGS) $(INSTDATFLAGS) -o ${WNNOWNER} ${OBJ} $(DESTDIR)$(GERODIR)
+-	${WNNTOUCH} $(DESTDIR)$(GERODIR)/${OBJ}
++	@INSTALL@ $(INSTALLFLAGS) $(INSTDATFLAGS) ${OBJ} $(DESTDIR)$(GERODIR)
+ 
+ clean::
+ 	$(RM) ${OBJ}
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jserver/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jserver/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jserver/Makefile.in	Sun May 27 08:48:06 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jserver/Makefile.in	Sun Mar 10 12:20:58 2002
+@@ -36,7 +36,7 @@
+  JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
+        INCLUDES = -I$(WNNINCLUDESRC) -I$(TOP)
+         DEFINES = $(WNNDEFINES) $(JSERVERDEFINES) $(WNNTERM)
+-LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
+   SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(JWNNLANG)/jserverrc\"
+   HINSIDEFINES = -DHINSIDATA_FILE=\"/$(JWNNLANG)/hinsi.data\"
+ 
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jutil/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jutil/Makefile.in	Fri Jun  1 18:13:57 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jutil/Makefile.in	Sun Mar 10 12:21:25 2002
+@@ -35,7 +35,7 @@
+ 
+        INCLUDES = -I$(WNNINCLUDESRC) -I$(TOP)
+         DEFINES = $(WNNDEFINES) $(WNNLANGDEF)
+-   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS) -o $(WNNOWNER)
++   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS)
+     HINSIDEFINE = -DHINSIDATA_FILE=\"/$(JWNNLANG)/hinsi.data\"
+ 
+ CLIENTPROGRAMS = wnnstat wnnkill wddel wdreg
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/pubdicplus/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/pubdicplus/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/pubdicplus/Makefile.in	Sun May 27 08:48:14 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/pubdicplus/Makefile.in	Sun Mar 10 12:22:55 2002
+@@ -33,7 +33,7 @@
+ 
+ INSTALL         = @INSTALL@
+ 
+-   INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
++   INSTALLFLAGS = $(INSTLIBFLAGS)
+            ATOD = $(WNNJUTILSRC)/atod
+            ATOF = $(WNNJUTILSRC)/atof
+        WNNTOUCH = $(WNNJUTILSRC)/wnntouch
+@@ -371,8 +371,7 @@
+ install::
+ 	@case '${MFLAGS}' in *[i]*) set +e;; esac;
+ 	@for i in $(JWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
+-	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i; \
+-	chown $(WNNOWNER) $(DESTDIR)$$i); fi \
++	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i); fi \
+ 	done
+ 
+ install:: $(DIC)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/uum/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/uum/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/uum/Makefile.in	Fri Jun  1 18:14:24 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/uum/Makefile.in	Sun Mar 10 12:23:20 2002
+@@ -36,7 +36,7 @@
+        UUMOWNER = root
+        INCLUDES = -I$(WNNINCLUDESRC) -I$(WNNROMKANSRC) -I$(TOP)
+         DEFINES = $(SIGNAL_DEFINES) $(WNNDEFINES) $(WNNLANGDEF)
+-LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
++LOCAL_INSTFLAGS =
+ LOCAL_LIBRARIES = $(WNNJLIB) $(WNNCONVLIB)
+ 
+ SRC1= epilogue.c header.c kensaku.c kuten.c jis_in.c       prologue.c touroku.c jikouho.c jutil.c w_string.c       printf.c termio.c hinsi.c termcap.c       ttyfdslot.c setutmp.c redraw.c history.c key_bind.c       screen.c basic_op.c uif.c cursor.c jhlp.c       select_ele.c inspect.c wnnrc_op.c functions.c
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/wnncons/dic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/wnncons/dic/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/wnncons/dic/Makefile.in	Sun May 27 08:48:17 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/wnncons/dic/Makefile.in	Sun Mar 10 12:29:46 2002
+@@ -33,7 +33,7 @@
+ 
+ INSTALL         = @INSTALL@
+ 
+-   INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
++   INSTALLFLAGS = $(INSTLIBFLAGS)
+            ATOD = $(WNNJUTILSRC)/atod
+        WNNTOUCH = $(WNNJUTILSRC)/wnntouch
+           HINSI = @HINSI_DATA@
+@@ -73,8 +73,7 @@
+ install::
+ 	@case '${MFLAGS}' in *[i]*) set +e;; esac;
+ 	@for i in $(JWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
+-	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i; \
+-	chown $(WNNOWNER) $(DESTDIR)$$i); fi \
++	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i); fi \
+ 	done
+ 
+ install:: $(DICS)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xjutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xjutil/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xjutil/Makefile.in	Sun Jan 16 07:52:41 2000
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xjutil/Makefile.in	Sun Mar 10 12:23:43 2002
+@@ -22,7 +22,7 @@
+ 
+ include @top_srcdir@/makerule.mk
+ 
+-LOCAL_INSTFLAGS = $(INSTBINFLAGS) -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
+        INCLUDES = -I. $(XWNMOINCLUDES) -I$(XWNMOSRC)
+ 
+         DEPLIBS = $(XWNMOJLIB)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xwnmo/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xwnmo/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xwnmo/Makefile.in	Sun Jan 16 07:52:41 2000
++++ FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xwnmo/Makefile.in	Sun Mar 10 12:27:02 2002
+@@ -22,7 +22,7 @@
+ 
+ include @top_srcdir@/makerule.mk
+ 
+-LOCAL_INSTFLAGS = $(INSTBINFLAGS) -o $(WNNOWNER)
++LOCAL_INSTFLAGS = $(INSTBINFLAGS)
+        INCLUDES = $(XWNMOINCLUDES)
+ 
+         DEPLIBS = $(XWNMOJLIB)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/cdic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/cdic/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/cdic/Makefile.in	Sun May 27 08:48:24 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/cdic/Makefile.in	Sun Mar 10 12:25:34 2002
+@@ -25,7 +25,7 @@
+ include @top_srcdir@/makerule.mk
+ 
+ INSTALL      = @INSTALL@
+-INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
++INSTALLFLAGS = $(INSTLIBFLAGS)
+ 
+         ATOD = $(CWNNJUTILSRC)/catod
+         ATOF = $(CWNNJUTILSRC)/catof
+@@ -34,7 +34,7 @@
+ #       HINSI = ./cixing.data
+     FZK_FLAG =
+ 
+-   INSTALLFLAGS = -m 644 -o $(WNNOWNER)
++   INSTALLFLAGS = -m 644
+ 
+ FULL = full.con
+ FULLR = full.conR
+@@ -69,8 +69,7 @@
+ install::
+ 	@case '${MFLAGS}' in *[i]*) set +e;; esac;
+ 	@for i in $(CWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
+-	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i; \
+-	chown $(WNNOWNER) $(DESTDIR)$$i); fi \
++	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i); fi \
+ 	done
+ 
+ install:: $(ALLTGT)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jserver/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jserver/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jserver/Makefile.in	Sun May 27 08:48:27 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jserver/Makefile.in	Sun Mar 10 12:26:01 2002
+@@ -36,7 +36,7 @@
+  JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(TOP)
+         DEFINES = $(CWNNDEFINES) $(JSERVERDEFINES) $(WNNTERM) $(CWNNLANGDEF)
+-LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
+   SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(CWNNLANG)/cserverrc\"
+     HINSIDEFINE = -DHINSIDATA_FILE=\"/$(CWNNLANG)/cixing.data\"
+  TSERVERINITDEF = -DSERVER_INIT_FILE=\"/$(TWNNLANG)/tserverrc\"
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jutil/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jutil/Makefile.in	Fri Jun  1 18:14:28 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jutil/Makefile.in	Sun Mar 10 12:26:22 2002
+@@ -32,7 +32,7 @@
+ include @top_srcdir@/makerule.mk
+ 
+ INSTALL      = @INSTALL@
+-INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS) -o $(WNNOWNER)
++INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS)
+ 
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(TOP)
+         DEFINES = $(CWNNDEFINES) $(CWNNLANGDEF)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/tdic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/tdic/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/tdic/Makefile.in	Sun May 27 08:48:31 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/tdic/Makefile.in	Sun Mar 10 12:27:35 2002
+@@ -25,7 +25,7 @@
+ include @top_srcdir@/makerule.mk
+ 
+ INSTALL      = @INSTALL@
+-INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
++INSTALLFLAGS = $(INSTLIBFLAGS)
+ 
+         ATOD = $(CWNNJUTILSRC)/catod
+         ATOF = $(CWNNJUTILSRC)/catof
+@@ -34,7 +34,7 @@
+ #       HINSI = ./cixing.data
+     FZK_FLAG =
+ 
+-   INSTALLFLAGS = -m 644 -o $(WNNOWNER)
++   INSTALLFLAGS = -m 644
+ 
+ FULL = full.con
+ FULLR = full.conR
+@@ -69,8 +69,7 @@
+ install::
+ 	@case '${MFLAGS}' in *[i]*) set +e;; esac;
+ 	@for i in $(TWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
+-	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i; \
+-	chown $(WNNOWNER) $(DESTDIR)$$i); fi \
++	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i); fi \
+ 	done
+ 
+ install:: $(ALLTGT)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/uum/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/uum/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/uum/Makefile.in	Fri Jun  1 18:14:31 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/uum/Makefile.in	Sun Mar 10 12:28:00 2002
+@@ -36,7 +36,7 @@
+        UUMOWNER = root
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(CWNNROMKANSRC) -I$(TOP)
+         DEFINES = $(CWNNDEFINES) $(CWNNLANGDEF)
+-LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
++LOCAL_INSTFLAGS =
+ LOCAL_LIBRARIES = $(CWNNJLIB) $(CWNNCONVLIB)
+ 
+ HDRS= buffer.h cvtcode.h sdefine.h sheader.h
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jserver/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jserver/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jserver/Makefile.in	Sun May 27 08:48:37 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jserver/Makefile.in	Sun Mar 10 12:28:27 2002
+@@ -36,7 +36,7 @@
+  JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
+        INCLUDES = -I$(KWNNJSERVERSRC) -I$(KWNNINCLUDESRC) -I$(TOP)
+         DEFINES = $(KWNNDEFINES) $(JSERVERDEFINES) $(WNNTERM) $(KWNNLANGDEF)
+-LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
+   SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(KWNNLANG)/kserverrc\"
+     HINSIDEFINE = -DHINSIDATA_FILE=\"/$(KWNNLANG)/hinsi.data\"
+ 
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jutil/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jutil/Makefile.in	Fri Jun  1 18:14:43 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jutil/Makefile.in	Sun Mar 10 12:28:39 2002
+@@ -35,7 +35,7 @@
+ 
+        INCLUDES = -I$(KWNNINCLUDESRC) -I$(TOP)
+         DEFINES = $(KWNNDEFINES) $(KWNNLANGDEF)
+-   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS) -o $(WNNOWNER)
++   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS)
+     HINSIDEFINE = -DHINSIDATA_FILE=\"/$(KWNNLANG)/hinsi.data\"
+ 
+ CLIENTPROGRAMS = kwnnstat kwnnkill kwddel kwdreg
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/kdic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/kdic/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/kdic/Makefile.in	Sun May 27 08:48:40 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/kdic/Makefile.in	Sun Mar 10 12:29:08 2002
+@@ -25,14 +25,14 @@
+ include @top_srcdir@/makerule.mk
+ 
+ INSTALL      = @INSTALL@
+-INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
++INSTALLFLAGS = $(INSTLIBFLAGS)
+         ATOD = $(KWNNJUTILSRC)/katod
+         ATOF = $(KWNNJUTILSRC)/katof
+     WNNTOUCH = $(KWNNJUTILSRC)/kwnntouch
+        HINSI = @KHINSI_DATA@
+     FZK_FLAG =
+ 
+-   INSTALLFLAGS = -m 644 -o $(WNNOWNER)
++   INSTALLFLAGS = -m 644
+ 
+ FULL = full.fzk
+ 
+@@ -63,8 +63,7 @@
+ install::
+ 	@case '${MFLAGS}' in *[i]*) set +e;; esac;
+ 	@for i in $(KWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
+-	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i; \
+-	chown $(WNNOWNER) $(DESTDIR)$$i); fi \
++	set +x; else (set -x; $(MKDIRHIER) $(DESTDIR)$$i); fi \
+ 	done
+ 
+ install:: $(ALLTGT)
+diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/uum/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/uum/Makefile.in
+--- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/uum/Makefile.in	Fri Jun  1 18:14:45 2001
++++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/uum/Makefile.in	Sun Mar 10 12:29:19 2002
+@@ -36,7 +36,7 @@
+        UUMOWNER = root
+        INCLUDES = -I$(KWNNINCLUDESRC) -I$(KWNNROMKANSRC) -I$(TOP)
+         DEFINES = $(KWNNDEFINES) $(KWNNLANGDEF)
+-LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
++LOCAL_INSTFLAGS =
+ LOCAL_LIBRARIES = $(KWNNJLIB) $(KWNNCONVLIB)
+ 
+ HDRS= buffer.h cvtcode.h sdefine.h sheader.h

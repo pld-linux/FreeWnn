@@ -1,0 +1,26 @@
+--- FreeWnn-1.1.1-a017/Xsi/Wnn/jserver/de.c.orig	Mon Jan 22 18:30:25 2001
++++ FreeWnn-1.1.1-a017/Xsi/Wnn/jserver/de.c	Mon Jan 22 18:31:43 2001
+@@ -213,7 +213,9 @@
+ 
+   port = -1;
+ 
+-  setuid (geteuid ());
++  setregid(getegid(), getegid());
++  setreuid(geteuid(), geteuid());
++
+ /* check whether another jserver already exists. */
+   get_options (argc, argv);
+ #ifdef  CHINESE
+--- FreeWnn-1.1.1-a017/Xsi/Wnn/uum/jhlp.c.orig	Mon Jan 22 18:28:06 2001
++++ FreeWnn-1.1.1-a017/Xsi/Wnn/uum/jhlp.c	Mon Jan 22 18:32:53 2001
+@@ -1297,8 +1297,8 @@
+       dup2 (ttypfd, 1);
+       dup2 (ttypfd, 2);
+ #else /* linux */
+-      setgid (getgid ());
+-      setuid (getuid ());
++      setregid (getegid(), getegid());
++      setreuid (geteuid(), geteuid());
+       close (0);
+       close (1);
+       close (2);

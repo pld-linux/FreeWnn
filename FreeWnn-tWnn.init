@@ -1,0 +1,68 @@
+#!/bin/sh
+#
+# tWnn		This shell script takes care of starting and stopping
+#		tserver (Chinese Conversion Engine).
+#
+# chkconfig:	345 90 12
+# description:	tWnn - Chinese(zh_TW) Conversion Engine
+# processname:	tserver
+
+# Source function library.
+. /etc/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/tWnn ] && . /etc/sysconfig/tWnn
+
+# Check that networking is up.
+if is_no "${NETWORKING}"; then
+	msg_network_down tWnn
+	exit 1
+fi
+
+[ -f /etc/FreeWnn/zh_TW/tserverrc ] || exit 1
+
+# See how we were called.
+case "$1" in
+    start)
+	if [ ! -f /var/lock/subsys/tWnn ]; then
+		msg_starting tWnn
+		rm -f /tmp/jd_sockV4
+		( su - wnn -s /bin/sh -c '/usr/bin/tserver' | grep "Finished" > /dev/null ) \
+			&& ok || fail
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/tWnn
+		exit $RETVAL
+	else
+		msg_already_running tWnn
+		exit 1
+	fi
+	;;
+    stop)
+	if [ -f /var/lock/subsys/tWnn ]; then
+		msg_stopping tWnn
+		killproc tserver
+		RETVAL=$?
+		rm -f /var/lock/subsys/tWnn /tmp/jd_sockV4
+		exit $RETVAL
+	else
+		msg_not_running tWnn
+		exit 1
+	fi
+	;;
+    status)
+	status tserver
+	;;
+    restart|reload)
+	$0 stop
+	$0 start
+	;;
+    *)
+	msg_usage "$0 {start|stop|status|restart|reload}"
+        exit 1
+	;;
+esac
+
+exit 0

@@ -1,0 +1,68 @@
+#!/bin/sh
+#
+# cWnn		This shell script takes care of starting and stopping
+#		cserver (Chinese Conversion Engine).
+#
+# chkconfig:	345 90 12
+# description:	cWnn - Chinese(zh_CN) Conversion Engine
+# processname:	cserver
+
+# Source function library.
+. /etc/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Get service config
+[ -f /etc/sysconfig/cWnn ] && . /etc/sysconfig/cWnn
+
+# Check that networking is up.
+if is_no "${NETWORKING}"; then
+	msg_network_down cWnn
+	exit 1
+fi
+
+[ -f /etc/FreeWnn/zh_CN/cserverrc ] || exit 1
+
+# See how we were called.
+case "$1" in
+    start)
+	if [ ! -f /var/lock/subsys/cWnn ]; then
+		msg_starting cWnn
+		rm -f /tmp/jd_sockV4
+		( su - wnn -s /bin/sh -c '/usr/bin/cserver' | grep "Finished" > /dev/null ) \
+			&& ok || fail
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cWnn
+		exit $RETVAL
+	else
+		msg_already_running cWnn
+		exit 1
+	fi
+	;;
+    stop)
+	if [ -f /var/lock/subsys/cWnn ]; then
+		msg_stopping cWnn
+		killproc cserver
+		RETVAL=$?
+		rm -f /var/lock/subsys/cWnn /tmp/jd_sockV4
+		exit $RETVAL
+	else
+		msg_not_running cWnn
+		exit 1
+	fi
+	;;
+    status)
+	status cserver
+	;;
+    restart|reload)
+	$0 stop
+	$0 start
+	;;
+    *)
+	msg_usage "$0 {start|stop|status|restart|reload}"
+        exit 1
+	;;
+esac
+
+exit 0
