@@ -26,6 +26,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
+BuildRequires:	rpmbuild(macros) >= 1.159
 PreReq:		%{name}-common = %{epoch}:%{version}-%{release}
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
@@ -92,10 +93,13 @@ Summary:	Common files for Wnn
 Summary(pl):	Wspólne pliki Wnn
 Group:		Applications/System
 Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/userdel
 Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Provides:	group(wnn)
+Provides:	user(wnn)
 
 %description common
 FreeWnn-common includes the files you need to run FreeWnn, cWnn or
@@ -371,27 +375,28 @@ fi
 %postun	-n kWnn-libs -p /sbin/ldconfig
 
 %pre common
-if [ -n "`getgid wnn`" ]; then
-	if [ "`getgid wnn`" != "42" ]; then
+if [ -n "`/usr/bin/getgid wnn`" ]; then
+	if [ "`/usr/bin/getgid wnn`" != 42 ]; then
 		echo "Warning: group wnn doesn't have gid=42. Correct this before installing FreeWnn." 1>&2
 		exit 1
 	fi
 else
-	/usr/sbin/groupadd -g 42 -r -f wnn
+	/usr/sbin/groupadd -g 42 wnn 1>&2
 fi
-if [ -n "`id -u wnn 2>/dev/null`" ]; then
-	if [ "`id -u wnn`" != "42" ]; then
+if [ -n "`/bin/id -u wnn 2>/dev/null`" ]; then
+	if [ "`/bin/id -u wnn`" != 42 ]; then
 		echo "Warning: user wnn doesn't have uid=42. Correct this before installing FreeWnn." 1>&2
 		exit 1
 	fi
 else
-	/usr/sbin/useradd -M -u 42 -c "Wnn Service User" -g wnn -s /bin/false wnn 1>&2
+	/usr/sbin/useradd -u 42 -c "Wnn Service User" -g wnn \
+		-s /bin/false wnn 1>&2
 fi
 
 %postun common
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel wnn
-	/usr/sbin/groupdel wnn
+	%userremove wnn
+	%groupremove wnn
 fi
 
 %files
