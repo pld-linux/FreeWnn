@@ -239,7 +239,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
 
 %prep
 #%setup -q -n %{name}-%{upver}-a%{alpha}/Xsi
-%setup -q -n %{name}-%{upver}-a017-pl4/Xsi
+%setup -q -n %{name}-%{upver}-a017-pl4
 %patch0 -p2
 %patch1 -p2
 %patch2 -p2
@@ -249,16 +249,19 @@ Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
 %patch6 -p2
 
 %build
+cd Xsi
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %configure
 
-%{__make} CDEBUGFLAGS="%{rpmcflags} -I/usr/include/ncurses"
+%{__make} \
+	CDEBUGFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+cd Xsi
 %{__make} install install.man \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -391,11 +394,11 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc Contrib/dic/gerodic/GERODIC PubdicPlus/PUBDICPLUS-README
-%doc Wnn/manual.en
-%lang(ja) %doc PubdicPlus/PUBDICPLUS-ERRATA PubdicPlus/PUBDICPLUS-README.jp
-%lang(ja) %doc README.Wnn-consortium.dic
-%lang(ja) %doc Wnn/manual.en
+%doc Xsi/Contrib/dic/gerodic/GERODIC Xsi/PubdicPlus/PUBDICPLUS-README
+%doc Xsi/Wnn/manual.en
+%lang(ja) %doc Xsi/PubdicPlus/PUBDICPLUS-ERRATA Xsi/PubdicPlus/PUBDICPLUS-README.jp
+%lang(ja) %doc Xsi/README.Wnn-consortium.dic
+%lang(ja) %doc Xsi/Wnn/manual
 %attr(754,root,root) /etc/rc.d/init.d/FreeWnn
 %attr(755,root,root) %{_bindir}/atod
 %attr(755,root,root) %{_bindir}/atof
@@ -443,10 +446,10 @@ fi
 
 %files common
 %defattr(644,root,root,755)
-%doc CONTRIBUTORS ChangeLog.en
-%doc Xwnmo/manual.en
-%lang(ja) %doc ChangeLog
-%lang(ja) %doc Wnn/manual
+%doc Xsi/CONTRIBUTORS Xsi/ChangeLog.en
+%doc Xsi/Xwnmo/manual.en
+%lang(ja) %doc Xsi/ChangeLog
+%lang(ja) %doc Xsi/Xwnmo/manual
 %dir %{_sysconfdir}
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/[cs]*
 %dir /var/lib/wnn
@@ -469,8 +472,8 @@ fi
 
 %files -n cWnn-common
 %defattr(644,root,root,755)
-%doc cWnn/manual.en
-%lang(ja) %doc cWnn/manual
+%doc Xsi/cWnn/manual.en
+%lang(ja) %doc Xsi/cWnn/manual
 %attr(755,root,root) %{_bindir}/catod
 %attr(755,root,root) %{_bindir}/catof
 %attr(755,root,root) %{_bindir}/cdtoa
@@ -479,7 +482,7 @@ fi
 %attr(755,root,root) %{_bindir}/cwnnkill
 %attr(755,root,root) %{_bindir}/cwnnstat
 %attr(755,root,root) %{_bindir}/cwnntouch
-%{_mandir}/man1/c[^s]*
+%{_mandir}/man1/c[!s]*
 %{_mandir}/man4/c*
 
 %files -n cWnn-libs
