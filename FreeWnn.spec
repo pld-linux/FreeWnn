@@ -279,7 +279,7 @@ ln -sf /var/lib/wnn/zh_TW/dic $RPM_BUILD_ROOT%{_sysconfdir}/zh_TW/dic
 ln -sf /var/lib/wnn/ko_KR/dic $RPM_BUILD_ROOT%{_sysconfdir}/ko_KR/dic
 
 mv -f Wnn-consortium/dic/README README.Wnn-consortium.dic
-	
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
