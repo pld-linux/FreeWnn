@@ -22,14 +22,14 @@ Patch4:		%{name}-includes.patch
 Patch5:		%{name}-reuid.patch
 Patch6:		%{name}-manpaths.patch
 URL:		http://www.freewnn.org/
-PreReq:		%{name}-common = %{version}
-Requires:	setup >= 2.4.1
-Requires:	%{name}-libs = %{epoch}:%{version}
-Requires(post,preun):	/sbin/chkconfig
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
+PreReq:		%{name}-common = %{epoch}:%{version}-%{release}
+Requires(post,preun):	/sbin/chkconfig
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Requires:	setup >= 2.4.1
 Conflicts:	wnn6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,7 +65,7 @@ Ten pakiet zawiera biblioteki wspó³dzielone FreeWnn.
 Summary:	Header files for FreeWnn
 Summary(pl):	Pliki nag³ówkowe FreeWnn
 Group:		Development/Libraries
-Requires:	%{name}-libs = %{epoch}:%{version}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
 %description devel
 This package contains the header files for building programs with use
@@ -79,7 +79,7 @@ u¿ywaj±cych FreeWnn.
 Summary:	Static FreeWnn library
 Summary(pl):	Statyczna biblioteka FreeWnn
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static version of FreeWnn library.
@@ -109,7 +109,7 @@ cWnn lub kWnn.
 Summary:	cWnn Chinese Input System (version for China)
 Summary(pl):	cWnn System wprowadzania znaków chiñskich (wersja dla Chin)
 Group:		Applications/System
-PreReq:		cWnn-common = %{version}
+PreReq:		cWnn-common = %{epoch}:%{version}-%{release}
 PreReq:		setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
 
@@ -125,8 +125,8 @@ wersji dla Chin.
 Summary:	cWnn/tWnn Chinese Input System common files
 Summary(pl):	Wspólne pliki systemu wprowadzania znaków chiñskich cWnn/tWnn
 Group:		Applications/System
-Requires:	%{name}-common = %{epoch}:%{version}
-Requires:	cWnn-libs = %{version}
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
+Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
 
 %description -n cWnn-common
 This package includes cWnn/tWnn Chinese Input System common files for
@@ -151,6 +151,7 @@ Ten pakiet zawiera bibliotekê wspó³dzielon± cWnn/tWnn.
 Summary:	Header files for cWnn/tWnn
 Summary(pl):	Pliki nag³ówkowe cWnn/tWnn
 Group:		Development/Libraries
+Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
 
 %description -n cWnn-devel
 This package contains the header files for building programs with use
@@ -164,7 +165,7 @@ cWnn/tWnn.
 Summary:	Static cWnn/tWnn library
 Summary(pl):	Statyczna biblioteka cWnn/tWnn
 Group:		Development/Libraries
-Requires:	cWnn-devel = %{version}
+Requires:	cWnn-devel = %{epoch}:%{version}-%{release}
 
 %description -n cWnn-static
 This package contains static version of cWnn/tWnn library.
@@ -176,7 +177,7 @@ Ten pakiet zawiera statyczn± wersjê biblioteki cWnn/tWnn.
 Summary:	tWnn Chinese Input System (version for Taiwan)
 Summary(pl):	System wprowadzania znaków chiñskich tWnn (wersja dla Tajwanu)
 Group:		Applications/System
-PreReq:		cWnn-common = %{version}
+PreReq:		cWnn-common = %{epoch}:%{version}-%{release}
 PreReq:		setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
 
@@ -190,10 +191,10 @@ System wprowadzania znaków chiñskich FreeWnn w wersji dla Tajwanu.
 Summary:	kWnn Korean Input System
 Summary(pl):	System wprowadzania znaków koreañskich kWnn
 Group:		Applications/System
-PreReq:		%{name}-common = %{version}
+PreReq:		%{name}-common = %{epoch}:%{version}-%{release}
 PreReq:		setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
-Requires:	kWnn-libs = %{version}
+Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
 
 %description -n kWnn
 FreeWnn Korean Input System.
@@ -216,6 +217,7 @@ Ten pakiet zawiera bibliotekê wspó³dzielon± kWnn.
 Summary:	Header files for kWnn
 Summary(pl):	Pliki nag³ówkowe kWnn
 Group:		Development/Libraries
+Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
 
 %description -n kWnn-devel
 This package contains the header files for building programs which use
@@ -229,7 +231,7 @@ kWnn.
 Summary:	Static kWnn library
 Summary(pl):	Statyczna biblioteka kWnn
 Group:		Development/Libraries
-Requires:	kWnn-devel = %{version}
+Requires:	kWnn-devel = %{epoch}:%{version}-%{release}
 
 %description -n kWnn-static
 This package contains static version of kWnn library.
@@ -240,13 +242,13 @@ Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
 %prep
 #%setup -q -n %{name}-%{upver}-a%{alpha}/Xsi
 %setup -q -n %{name}-%{upver}-a017-pl4
-%patch0 -p2
-%patch1 -p2
-%patch2 -p2
-%patch3 -p2
-%patch4 -p2
-%patch5 -p2
-%patch6 -p2
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 cd Xsi
@@ -432,10 +434,10 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/libjd.la
 %attr(755,root,root) %{_libdir}/libjd.so
-%{_libdir}/libwnn.la
+%{_libdir}/libjd.la
 %attr(755,root,root) %{_libdir}/libwnn.so
+%{_libdir}/libwnn.la
 %{_includedir}/wnn
 %lang(ja) %{_mandir}/ja/man3/*
 
@@ -491,8 +493,8 @@ fi
 
 %files -n cWnn-devel
 %defattr(644,root,root,755)
-%{_libdir}/libcwnn.la
 %attr(755,root,root) %{_libdir}/libcwnn.so
+%{_libdir}/libcwnn.la
 %{_includedir}/cwnn
 
 %files -n cWnn-static
@@ -540,8 +542,8 @@ fi
 
 %files -n kWnn-devel
 %defattr(644,root,root,755)
-%{_libdir}/libkwnn.la
 %attr(755,root,root) %{_libdir}/libkwnn.so
+%{_libdir}/libkwnn.la
 %{_includedir}/kwnn
 
 %files -n kWnn-static
