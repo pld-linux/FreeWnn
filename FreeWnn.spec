@@ -27,7 +27,7 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
 BuildRequires:	rpmbuild(macros) >= 1.202
-PreReq:		%{name}-common = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	setup >= 2.4.1
@@ -92,12 +92,12 @@ Statyczna wersja biblioteki FreeWnn.
 Summary:	Common files for Wnn
 Summary(pl):	Wspólne pliki Wnn
 Group:		Applications/System
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/groupdel
-Requires(postun):	/usr/sbin/userdel
 Provides:	group(wnn)
 Provides:	user(wnn)
 
@@ -113,8 +113,8 @@ cWnn lub kWnn.
 Summary:	cWnn Chinese Input System (version for China)
 Summary(pl):	cWnn System wprowadzania znaków chiñskich (wersja dla Chin)
 Group:		Applications/System
-PreReq:		cWnn-common = %{epoch}:%{version}-%{release}
-PreReq:		setup >= 2.4.1-3
+Requires:	cWnn-common = %{epoch}:%{version}-%{release}
+Requires:	setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
 
 %description -n cWnn
@@ -181,8 +181,8 @@ Ten pakiet zawiera statyczn± wersjê biblioteki cWnn/tWnn.
 Summary:	tWnn Chinese Input System (version for Taiwan)
 Summary(pl):	System wprowadzania znaków chiñskich tWnn (wersja dla Tajwanu)
 Group:		Applications/System
-PreReq:		cWnn-common = %{epoch}:%{version}-%{release}
-PreReq:		setup >= 2.4.1-3
+Requires:	cWnn-common = %{epoch}:%{version}-%{release}
+Requires:	setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
 
 %description -n tWnn
@@ -195,8 +195,8 @@ System wprowadzania znaków chiñskich FreeWnn w wersji dla Tajwanu.
 Summary:	kWnn Korean Input System
 Summary(pl):	System wprowadzania znaków koreañskich kWnn
 Group:		Applications/System
-PreReq:		%{name}-common = %{epoch}:%{version}-%{release}
-PreReq:		setup >= 2.4.1-3
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
+Requires:	setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
 Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
 
@@ -409,12 +409,12 @@ fi
 %attr(775,root,wnn) %dir /var/lib/wnn/ja/dic/*
 %attr(664,root,wnn) /var/lib/wnn/ja/dic/*/*
 %dir %{_sysconfdir}/ja
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ja/[hjluw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/[hjluw]*
 %{_sysconfdir}/ja/dic
 %{_sysconfdir}/ja/rk
 %{_sysconfdir}/ja/rk.vi
 %dir %{_sysconfdir}/lt_LN
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/lt_LN/u*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lt_LN/u*
 %{_sysconfdir}/lt_LN/rk
 
 %files libs
@@ -443,7 +443,7 @@ fi
 %lang(ja) %doc Xsi/ChangeLog
 %lang(ja) %doc Xsi/Xwnmo/manual
 %dir %{_sysconfdir}
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/[cs]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/[cs]*
 %dir /var/lib/wnn
 
 %files -n cWnn
@@ -451,7 +451,7 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/cWnn
 %attr(755,root,root) %{_bindir}/cserver
 %dir %{_sysconfdir}/zh_CN
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/zh_CN/[cluw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/[cluw]*
 %{_sysconfdir}/zh_CN/dic
 %{_sysconfdir}/zh_CN/rk
 %{_sysconfdir}/zh_CN/rk_p
@@ -496,7 +496,7 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/tWnn
 %attr(755,root,root) %{_bindir}/tserver
 %dir %{_sysconfdir}/zh_TW
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/zh_TW/[cltuw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/[cltuw]*
 %{_sysconfdir}/zh_TW/dic
 %{_sysconfdir}/zh_TW/rk
 %{_sysconfdir}/zh_TW/rk_p
@@ -520,7 +520,7 @@ fi
 %attr(755,root,root) %{_bindir}/kwnntouch
 %dir %{_sysconfdir}/ko_KR
 %{_sysconfdir}/ko_KR/dic
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/ko_KR/[hkluw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/[hkluw]*
 %attr(775,root,wnn) %dir /var/lib/wnn/ko_KR/dic
 %attr(775,root,wnn) %dir /var/lib/wnn/ko_KR/dic/*
 %attr(664,root,wnn) /var/lib/wnn/ko_KR/dic/*/*
