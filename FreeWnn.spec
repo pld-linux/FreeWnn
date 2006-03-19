@@ -1,13 +1,13 @@
+%define upver	1.1.1
+%define alpha	018
 Summary:	FreeWnn Japanese Input System
 Summary(pl):	FreeWnn - system wprowadzania znaków japoñskich
 Name:		FreeWnn
-%define upver	1.1.1
-%define alpha	018
 Version:	%{upver}a%{alpha}
 Release:	1
 Epoch:		1
-Group:		Applications/System
 License:	GPL
+Group:		Applications/System
 Source0:	ftp://ftp.freewnn.org/pub/FreeWnn/alpha/%{name}-%{upver}-a%{alpha}.tar.bz2
 # Source0-md5:	e4a56cd7373736c090c6b93a255b950b
 Source1:	%{name}.init
@@ -26,9 +26,9 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
-BuildRequires:	rpmbuild(macros) >= 1.202
-Requires:	%{name}-common = %{epoch}:%{version}-%{release}
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	setup >= 2.4.1
 Conflicts:	wnn6
@@ -113,9 +113,9 @@ cWnn lub kWnn.
 Summary:	cWnn Chinese Input System (version for China)
 Summary(pl):	cWnn System wprowadzania znaków chiñskich (wersja dla Chin)
 Group:		Applications/System
+Requires(post,preun):	/sbin/chkconfig
 Requires:	cWnn-common = %{epoch}:%{version}-%{release}
 Requires:	setup >= 2.4.1-3
-Requires(post,preun):	/sbin/chkconfig
 
 %description -n cWnn
 This package includes FreeWnn Chinese Input System (version for
@@ -181,9 +181,9 @@ Ten pakiet zawiera statyczn± wersjê biblioteki cWnn/tWnn.
 Summary:	tWnn Chinese Input System (version for Taiwan)
 Summary(pl):	System wprowadzania znaków chiñskich tWnn (wersja dla Tajwanu)
 Group:		Applications/System
+Requires(post,preun):	/sbin/chkconfig
 Requires:	cWnn-common = %{epoch}:%{version}-%{release}
 Requires:	setup >= 2.4.1-3
-Requires(post,preun):	/sbin/chkconfig
 
 %description -n tWnn
 FreeWnn Chinese Input System (version for Taiwan).
@@ -195,10 +195,10 @@ System wprowadzania znaków chiñskich FreeWnn w wersji dla Tajwanu.
 Summary:	kWnn Korean Input System
 Summary(pl):	System wprowadzania znaków koreañskich kWnn
 Group:		Applications/System
-Requires:	%{name}-common = %{epoch}:%{version}-%{release}
-Requires:	setup >= 2.4.1-3
 Requires(post,preun):	/sbin/chkconfig
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
+Requires:	setup >= 2.4.1-3
 
 %description -n kWnn
 FreeWnn Korean Input System.
@@ -297,17 +297,11 @@ rm -rf $RPM_BUILD_ROOT
 cd /var/lib/wnn/ja/dic/pubdic
 %{_bindir}/wnntouch *.*
 /sbin/chkconfig --add FreeWnn
-if [ -f /var/lock/subsys/FreeWnn ]; then
-	/etc/rc.d/init.d/FreeWnn restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/FreeWnn start\" to start FreeWnn service."
-fi
+%service FreeWnn restart
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/FreeWnn ]; then
-		/etc/rc.d/init.d/FreeWnn stop 1>&2
-	fi
+	%service FreeWnn stop
 	/sbin/chkconfig --del FreeWnn
 fi
 
@@ -318,17 +312,11 @@ fi
 cd /var/lib/wnn/zh_CN/dic/sys
 %{_bindir}/cwnntouch *.*
 /sbin/chkconfig --add cWnn
-if [ -f /var/lock/subsys/cWnn ]; then
-	/etc/rc.d/init.d/cWnn restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/cWnn start\" to start cWnn service."
-fi
+%service cWnn restart
 
 %preun -n cWnn
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/cWnn ]; then
-		/etc/rc.d/init.d/cWnn stop 1>&2
-	fi
+	%service cWnn stop
 	/sbin/chkconfig --del cWnn
 fi
 
@@ -339,17 +327,11 @@ fi
 cd /var/lib/wnn/zh_TW/dic/sys
 %{_bindir}/cwnntouch *.*
 /sbin/chkconfig --add tWnn
-if [ -f /var/lock/subsys/tWnn ]; then
-	/etc/rc.d/init.d/tWnn restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/tWnn start\" to start tWnn service."
-fi
+%service tWnn restart
 
 %preun -n tWnn
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/tWnn ]; then
-		/etc/rc.d/init.d/tWnn stop 1>&2
-	fi
+	%service tWnn stop
 	/sbin/chkconfig --del tWnn
 fi
 
@@ -357,17 +339,11 @@ fi
 cd /var/lib/wnn/ko_KR/dic/sys
 %{_bindir}/kwnntouch *.*
 /sbin/chkconfig --add kWnn
-if [ -f /var/lock/subsys/kWnn ]; then
-	/etc/rc.d/init.d/kWnn restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/kWnn start\" to start kWnn service."
-fi
+%service kWnn restart
 
 %preun -n kWnn
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/kWnn ]; then
-		/etc/rc.d/init.d/kWnn stop 1>&2
-	fi
+	%service kWnn stop
 	/sbin/chkconfig --del kWnn
 fi
 
