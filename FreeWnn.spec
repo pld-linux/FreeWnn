@@ -1,7 +1,7 @@
 %define upver	1.1.1
 %define alpha	018
 Summary:	FreeWnn Japanese Input System
-Summary(pl.UTF-8):   FreeWnn - system wprowadzania znaków japońskich
+Summary(pl.UTF-8):	FreeWnn - system wprowadzania znaków japońskich
 Name:		FreeWnn
 Version:	%{upver}a%{alpha}
 Release:	1
@@ -52,7 +52,7 @@ oraz Astec, Inc.
 
 %package libs
 Summary:	Runtime library for FreeWnn
-Summary(pl.UTF-8):   Biblioteki współdzielone FreeWnn
+Summary(pl.UTF-8):	Biblioteki współdzielone FreeWnn
 Group:		Libraries
 
 %description libs
@@ -64,7 +64,7 @@ Ten pakiet zawiera biblioteki współdzielone FreeWnn.
 
 %package devel
 Summary:	Header files for FreeWnn
-Summary(pl.UTF-8):   Pliki nagłówkowe FreeWnn
+Summary(pl.UTF-8):	Pliki nagłówkowe FreeWnn
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
@@ -78,7 +78,7 @@ używających FreeWnn.
 
 %package static
 Summary:	Static FreeWnn library
-Summary(pl.UTF-8):   Statyczna biblioteka FreeWnn
+Summary(pl.UTF-8):	Statyczna biblioteka FreeWnn
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
@@ -90,7 +90,7 @@ Statyczna wersja biblioteki FreeWnn.
 
 %package common
 Summary:	Common files for Wnn
-Summary(pl.UTF-8):   Wspólne pliki Wnn
+Summary(pl.UTF-8):	Wspólne pliki Wnn
 Group:		Applications/System
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
@@ -111,7 +111,7 @@ cWnn lub kWnn.
 
 %package -n cWnn
 Summary:	cWnn Chinese Input System (version for China)
-Summary(pl.UTF-8):   cWnn System wprowadzania znaków chińskich (wersja dla Chin)
+Summary(pl.UTF-8):	cWnn System wprowadzania znaków chińskich (wersja dla Chin)
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	cWnn-common = %{epoch}:%{version}-%{release}
@@ -127,7 +127,7 @@ wersji dla Chin.
 
 %package -n cWnn-common
 Summary:	cWnn/tWnn Chinese Input System common files
-Summary(pl.UTF-8):   Wspólne pliki systemu wprowadzania znaków chińskich cWnn/tWnn
+Summary(pl.UTF-8):	Wspólne pliki systemu wprowadzania znaków chińskich cWnn/tWnn
 Group:		Applications/System
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
@@ -142,7 +142,7 @@ systemu wprowadzania znaków chińskich cWnn/tWnn.
 
 %package -n cWnn-libs
 Summary:	cWnn/tWnn runtime library
-Summary(pl.UTF-8):   Biblioteka współdzielona cWnn/tWnn
+Summary(pl.UTF-8):	Biblioteka współdzielona cWnn/tWnn
 Group:		Libraries
 
 %description -n cWnn-libs
@@ -153,7 +153,7 @@ Ten pakiet zawiera bibliotekę współdzieloną cWnn/tWnn.
 
 %package -n cWnn-devel
 Summary:	Header files for cWnn/tWnn
-Summary(pl.UTF-8):   Pliki nagłówkowe cWnn/tWnn
+Summary(pl.UTF-8):	Pliki nagłówkowe cWnn/tWnn
 Group:		Development/Libraries
 Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
 
@@ -167,7 +167,7 @@ cWnn/tWnn.
 
 %package -n cWnn-static
 Summary:	Static cWnn/tWnn library
-Summary(pl.UTF-8):   Statyczna biblioteka cWnn/tWnn
+Summary(pl.UTF-8):	Statyczna biblioteka cWnn/tWnn
 Group:		Development/Libraries
 Requires:	cWnn-devel = %{epoch}:%{version}-%{release}
 
@@ -179,7 +179,7 @@ Ten pakiet zawiera statyczną wersję biblioteki cWnn/tWnn.
 
 %package -n tWnn
 Summary:	tWnn Chinese Input System (version for Taiwan)
-Summary(pl.UTF-8):   System wprowadzania znaków chińskich tWnn (wersja dla Tajwanu)
+Summary(pl.UTF-8):	System wprowadzania znaków chińskich tWnn (wersja dla Tajwanu)
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	cWnn-common = %{epoch}:%{version}-%{release}
@@ -193,7 +193,7 @@ System wprowadzania znaków chińskich FreeWnn w wersji dla Tajwanu.
 
 %package -n kWnn
 Summary:	kWnn Korean Input System
-Summary(pl.UTF-8):   System wprowadzania znaków koreańskich kWnn
+Summary(pl.UTF-8):	System wprowadzania znaków koreańskich kWnn
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
@@ -208,7 +208,7 @@ System wprowadzania znaków koreańskich FreeWnn.
 
 %package -n kWnn-libs
 Summary:	kWnn runtime library
-Summary(pl.UTF-8):   Biblioteka współdzielona kWnn
+Summary(pl.UTF-8):	Biblioteka współdzielona kWnn
 Group:		Libraries
 
 %description -n kWnn-libs
@@ -219,7 +219,7 @@ Ten pakiet zawiera bibliotekę współdzieloną kWnn.
 
 %package -n kWnn-devel
 Summary:	Header files for kWnn
-Summary(pl.UTF-8):   Pliki nagłówkowe kWnn
+Summary(pl.UTF-8):	Pliki nagłówkowe kWnn
 Group:		Development/Libraries
 Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
 
@@ -233,7 +233,7 @@ kWnn.
 
 %package -n kWnn-static
 Summary:	Static kWnn library
-Summary(pl.UTF-8):   Statyczna biblioteka kWnn
+Summary(pl.UTF-8):	Statyczna biblioteka kWnn
 Group:		Development/Libraries
 Requires:	kWnn-devel = %{epoch}:%{version}-%{release}
 
