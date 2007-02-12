@@ -1,7 +1,7 @@
 %define upver	1.1.1
 %define alpha	018
 Summary:	FreeWnn Japanese Input System
-Summary(pl):	FreeWnn - system wprowadzania znaków japoñskich
+Summary(pl.UTF-8):   FreeWnn - system wprowadzania znakÃ³w japoÅ„skich
 Name:		FreeWnn
 Version:	%{upver}a%{alpha}
 Release:	1
@@ -43,28 +43,28 @@ developed and released by the Software Research Group of Kyoto
 University Research Institute for Mathematical Science, OMRON
 Corporation and Astec, Inc.
 
-%description -l pl
-Ten pakiet zawiera system wprowadzania znaków japoñskich FreeWnn. Jest
-to, dzia³aj±cy tak¿e przez sieæ, system konwersji Kana do Kanji,
-stworzony i rozwijany wspólnie przez Software Research Group z
+%description -l pl.UTF-8
+Ten pakiet zawiera system wprowadzania znakÃ³w japoÅ„skich FreeWnn. Jest
+to, dziaÅ‚ajÄ…cy takÅ¼e przez sieÄ‡, system konwersji Kana do Kanji,
+stworzony i rozwijany wspÃ³lnie przez Software Research Group z
 Institute for Mathematical Science Kyoto University, OMRON Corporation
 oraz Astec, Inc.
 
 %package libs
 Summary:	Runtime library for FreeWnn
-Summary(pl):	Biblioteki wspó³dzielone FreeWnn
+Summary(pl.UTF-8):   Biblioteki wspÃ³Å‚dzielone FreeWnn
 Group:		Libraries
 
 %description libs
 This package contains the runtime library for running programs with
 FreeWnn.
 
-%description libs -l pl
-Ten pakiet zawiera biblioteki wspó³dzielone FreeWnn.
+%description libs -l pl.UTF-8
+Ten pakiet zawiera biblioteki wspÃ³Å‚dzielone FreeWnn.
 
 %package devel
 Summary:	Header files for FreeWnn
-Summary(pl):	Pliki nag³ówkowe FreeWnn
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe FreeWnn
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
@@ -72,25 +72,25 @@ Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 This package contains the header files for building programs with use
 FreeWnn.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe potrzebne do budowania programów
-u¿ywaj±cych FreeWnn.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe potrzebne do budowania programÃ³w
+uÅ¼ywajÄ…cych FreeWnn.
 
 %package static
 Summary:	Static FreeWnn library
-Summary(pl):	Statyczna biblioteka FreeWnn
+Summary(pl.UTF-8):   Statyczna biblioteka FreeWnn
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static version of FreeWnn library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna wersja biblioteki FreeWnn.
 
 %package common
 Summary:	Common files for Wnn
-Summary(pl):	Wspólne pliki Wnn
+Summary(pl.UTF-8):   WspÃ³lne pliki Wnn
 Group:		Applications/System
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
@@ -105,13 +105,13 @@ Provides:	user(wnn)
 FreeWnn-common includes the files you need to run FreeWnn, cWnn or
 kWnn.
 
-%description common -l pl
-Ten pakiet zawiera wspólne pliki niezbêdne do uruchomienia FreeWnn,
+%description common -l pl.UTF-8
+Ten pakiet zawiera wspÃ³lne pliki niezbÄ™dne do uruchomienia FreeWnn,
 cWnn lub kWnn.
 
 %package -n cWnn
 Summary:	cWnn Chinese Input System (version for China)
-Summary(pl):	cWnn System wprowadzania znaków chiñskich (wersja dla Chin)
+Summary(pl.UTF-8):   cWnn System wprowadzania znakÃ³w chiÅ„skich (wersja dla Chin)
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	cWnn-common = %{epoch}:%{version}-%{release}
@@ -121,13 +121,13 @@ Requires:	setup >= 2.4.1-3
 This package includes FreeWnn Chinese Input System (version for
 China).
 
-%description -n cWnn -l pl
-Ten pakiet zawiera system wprowadzania znaków chiñskich FreeWnn w
+%description -n cWnn -l pl.UTF-8
+Ten pakiet zawiera system wprowadzania znakÃ³w chiÅ„skich FreeWnn w
 wersji dla Chin.
 
 %package -n cWnn-common
 Summary:	cWnn/tWnn Chinese Input System common files
-Summary(pl):	Wspólne pliki systemu wprowadzania znaków chiñskich cWnn/tWnn
+Summary(pl.UTF-8):   WspÃ³lne pliki systemu wprowadzania znakÃ³w chiÅ„skich cWnn/tWnn
 Group:		Applications/System
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
@@ -136,24 +136,24 @@ Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
 This package includes cWnn/tWnn Chinese Input System common files for
 China and Taiwan version.
 
-%description -n cWnn-common -l pl
-Ten pakiet zawiera pliki wspólne dla wersji chiñskiej i tajwañskiej
-systemu wprowadzania znaków chiñskich cWnn/tWnn.
+%description -n cWnn-common -l pl.UTF-8
+Ten pakiet zawiera pliki wspÃ³lne dla wersji chiÅ„skiej i tajwaÅ„skiej
+systemu wprowadzania znakÃ³w chiÅ„skich cWnn/tWnn.
 
 %package -n cWnn-libs
 Summary:	cWnn/tWnn runtime library
-Summary(pl):	Biblioteka wspó³dzielona cWnn/tWnn
+Summary(pl.UTF-8):   Biblioteka wspÃ³Å‚dzielona cWnn/tWnn
 Group:		Libraries
 
 %description -n cWnn-libs
 This package contains cWnn/tWnn runtime library.
 
-%description -n cWnn-libs -l pl
-Ten pakiet zawiera bibliotekê wspó³dzielon± cWnn/tWnn.
+%description -n cWnn-libs -l pl.UTF-8
+Ten pakiet zawiera bibliotekÄ™ wspÃ³Å‚dzielonÄ… cWnn/tWnn.
 
 %package -n cWnn-devel
 Summary:	Header files for cWnn/tWnn
-Summary(pl):	Pliki nag³ówkowe cWnn/tWnn
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe cWnn/tWnn
 Group:		Development/Libraries
 Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
 
@@ -161,25 +161,25 @@ Requires:	cWnn-libs = %{epoch}:%{version}-%{release}
 This package contains the header files for building programs with use
 cWnn/tWnn.
 
-%description -n cWnn-devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe do budowania programów u¿ywaj±cych
+%description -n cWnn-devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe do budowania programÃ³w uÅ¼ywajÄ…cych
 cWnn/tWnn.
 
 %package -n cWnn-static
 Summary:	Static cWnn/tWnn library
-Summary(pl):	Statyczna biblioteka cWnn/tWnn
+Summary(pl.UTF-8):   Statyczna biblioteka cWnn/tWnn
 Group:		Development/Libraries
 Requires:	cWnn-devel = %{epoch}:%{version}-%{release}
 
 %description -n cWnn-static
 This package contains static version of cWnn/tWnn library.
 
-%description -n cWnn-static -l pl
-Ten pakiet zawiera statyczn± wersjê biblioteki cWnn/tWnn.
+%description -n cWnn-static -l pl.UTF-8
+Ten pakiet zawiera statycznÄ… wersjÄ™ biblioteki cWnn/tWnn.
 
 %package -n tWnn
 Summary:	tWnn Chinese Input System (version for Taiwan)
-Summary(pl):	System wprowadzania znaków chiñskich tWnn (wersja dla Tajwanu)
+Summary(pl.UTF-8):   System wprowadzania znakÃ³w chiÅ„skich tWnn (wersja dla Tajwanu)
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	cWnn-common = %{epoch}:%{version}-%{release}
@@ -188,12 +188,12 @@ Requires:	setup >= 2.4.1-3
 %description -n tWnn
 FreeWnn Chinese Input System (version for Taiwan).
 
-%description -n tWnn -l pl
-System wprowadzania znaków chiñskich FreeWnn w wersji dla Tajwanu.
+%description -n tWnn -l pl.UTF-8
+System wprowadzania znakÃ³w chiÅ„skich FreeWnn w wersji dla Tajwanu.
 
 %package -n kWnn
 Summary:	kWnn Korean Input System
-Summary(pl):	System wprowadzania znaków koreañskich kWnn
+Summary(pl.UTF-8):   System wprowadzania znakÃ³w koreaÅ„skich kWnn
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
@@ -203,23 +203,23 @@ Requires:	setup >= 2.4.1-3
 %description -n kWnn
 FreeWnn Korean Input System.
 
-%description -n kWnn -l pl
-System wprowadzania znaków koreañskich FreeWnn.
+%description -n kWnn -l pl.UTF-8
+System wprowadzania znakÃ³w koreaÅ„skich FreeWnn.
 
 %package -n kWnn-libs
 Summary:	kWnn runtime library
-Summary(pl):	Biblioteka wspó³dzielona kWnn
+Summary(pl.UTF-8):   Biblioteka wspÃ³Å‚dzielona kWnn
 Group:		Libraries
 
 %description -n kWnn-libs
 This package contains kWnn runtime library.
 
-%description -n kWnn-libs -l pl
-Ten pakiet zawiera bibliotekê wspó³dzielon± kWnn.
+%description -n kWnn-libs -l pl.UTF-8
+Ten pakiet zawiera bibliotekÄ™ wspÃ³Å‚dzielonÄ… kWnn.
 
 %package -n kWnn-devel
 Summary:	Header files for kWnn
-Summary(pl):	Pliki nag³ówkowe kWnn
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe kWnn
 Group:		Development/Libraries
 Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
 
@@ -227,21 +227,21 @@ Requires:	kWnn-libs = %{epoch}:%{version}-%{release}
 This package contains the header files for building programs which use
 kWnn.
 
-%description -n kWnn-devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe do budowania programów u¿ywaj±cych
+%description -n kWnn-devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe do budowania programÃ³w uÅ¼ywajÄ…cych
 kWnn.
 
 %package -n kWnn-static
 Summary:	Static kWnn library
-Summary(pl):	Statyczna biblioteka kWnn
+Summary(pl.UTF-8):   Statyczna biblioteka kWnn
 Group:		Development/Libraries
 Requires:	kWnn-devel = %{epoch}:%{version}-%{release}
 
 %description -n kWnn-static
 This package contains static version of kWnn library.
 
-%description -n kWnn-static -l pl
-Ten pakiet zawiera statyczn± wersjê biblioteki kWnn.
+%description -n kWnn-static -l pl.UTF-8
+Ten pakiet zawiera statycznÄ… wersjÄ™ biblioteki kWnn.
 
 %prep
 #%setup -q -n %{name}-%{upver}-a%{alpha}/Xsi
