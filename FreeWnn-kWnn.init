@@ -34,7 +34,7 @@ fi
 start() {
 	if [ ! -f /var/lock/subsys/kWnn ]; then
 		msg_starting kWnn
-		rm -f /tmp/jd_sockV4
+		rm -f /tmp/kd_sockV4
 		( su - wnn -s /bin/sh -c '/usr/bin/kserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
@@ -48,7 +48,7 @@ stop() {
 	if [ -f /var/lock/subsys/kWnn ]; then
 		msg_stopping kWnn
 		killproc kserver
-		rm -f /var/lock/subsys/kWnn /tmp/jd_sockV4
+		rm -f /var/lock/subsys/kWnn /tmp/kd_sockV4
 	else
 		msg_not_running kWnn
 	fi

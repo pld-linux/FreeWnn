@@ -34,7 +34,7 @@ fi
 start() {
 	if [ ! -f /var/lock/subsys/tWnn ]; then
 		msg_starting tWnn
-		rm -f /tmp/jd_sockV4
+		rm -f /tmp/td_sockV4
 		( su - wnn -s /bin/sh -c '/usr/bin/tserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
@@ -48,7 +48,7 @@ stop() {
 	if [ -f /var/lock/subsys/tWnn ]; then
 		msg_stopping tWnn
 		killproc tserver
-		rm -f /var/lock/subsys/tWnn /tmp/jd_sockV4
+		rm -f /var/lock/subsys/tWnn /tmp/td_sockV4
 	else
 		msg_not_running tWnn
 	fi

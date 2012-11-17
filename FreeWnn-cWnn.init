@@ -34,7 +34,7 @@ fi
 start() {
 	if [ ! -f /var/lock/subsys/cWnn ]; then
 		msg_starting cWnn
-		rm -f /tmp/jd_sockV4
+		rm -f /tmp/cd_sockV4
 		( su - wnn -s /bin/sh -c '/usr/bin/cserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
@@ -48,7 +48,7 @@ stop() {
 	if [ -f /var/lock/subsys/cWnn ]; then
 		msg_stopping cWnn
 		killproc cserver
-		rm -f /var/lock/subsys/cWnn /tmp/jd_sockV4
+		rm -f /var/lock/subsys/cWnn /tmp/cd_sockV4
 	else
 		msg_not_running cWnn
 	fi
