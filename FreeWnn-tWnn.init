@@ -31,10 +31,7 @@ if [ -f /etc/FreeWnn/zh_TW/tserverrc ]; then
 	exit 6
 fi
 
-RETVAL=0
-# See how we were called.
-case "$1" in
-  start)
+start() {
 	if [ ! -f /var/lock/subsys/tWnn ]; then
 		msg_starting tWnn
 		rm -f /tmp/jd_sockV4
@@ -45,8 +42,9 @@ case "$1" in
 	else
 		msg_already_running tWnn
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	if [ -f /var/lock/subsys/tWnn ]; then
 		msg_stopping tWnn
 		killproc tserver
@@ -54,18 +52,43 @@ case "$1" in
 	else
 		msg_not_running tWnn
 	fi
+}
+
+condrestart() {
+	if [ ! -f /var/lock/subsys/tWnn ]; then
+		msg_not_running tWnn
+		RETVAL=$1
+		return
+	fi
+	stop
+	start
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
 	;;
   status)
 	status tserver
-	exit $?
+	RETVAL=$?
 	;;
-  restart|force-reload)
-	$0 stop
-	$0 start
-	exit $?
+  restart)
+	stop
+	start
+	;;
+  try-restart)
+	condrestart 0
+	;;
+  force-reload)
+	condrestart 7
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|try-restart|force-reload|status}"
 	exit 3
 	;;
 esac
