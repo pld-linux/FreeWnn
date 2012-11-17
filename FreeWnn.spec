@@ -24,6 +24,7 @@ Patch6:		%{name}-libtool.patch
 Patch7:		%{name}-cpp.patch
 Patch8:		%{name}-install.patch
 Patch9:		%{name}-link.patch
+Patch10:	%{name}-format.patch
 URL:		http://www.freewnn.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -259,6 +260,7 @@ Ten pakiet zawiera statyczną wersję biblioteki kWnn.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 cp -p Wnn-consortium/dic/README README.Wnn-consortium.dic
 
@@ -269,8 +271,7 @@ cp -p Wnn-consortium/dic/README README.Wnn-consortium.dic
 CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 %configure
 
-%{__make}
-#	CDEBUGFLAGS="%{rpmcflags} -I/usr/include/ncurses"
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT

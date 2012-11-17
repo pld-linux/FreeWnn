@@ -1,0 +1,26 @@
+--- FreeWnn-1.1.1-a021/Wnn/jutil/wddel.c.orig	2002-05-13 00:51:17.000000000 +0200
++++ FreeWnn-1.1.1-a021/Wnn/jutil/wddel.c	2012-11-17 16:52:08.354757471 +0100
+@@ -95,8 +95,8 @@ usage ()
+ static void
+ err ()
+ {
+-  printf ((char *) wnn_perror ());
+-  printf ("\n bye.\n");
++  puts ((char *) wnn_perror ());
++  printf (" bye.\n");
+   exit (1);
+ }
+ 
+--- FreeWnn-1.1.1-a021/Wnn/jutil/wdreg.c.orig	2002-05-13 00:51:17.000000000 +0200
++++ FreeWnn-1.1.1-a021/Wnn/jutil/wdreg.c	2012-11-17 16:52:18.701902804 +0100
+@@ -95,8 +95,8 @@ usage ()
+ static void
+ err ()
+ {
+-  printf ((char *) wnn_perror ());
+-  printf ("\n bye.\n");
++  puts ((char *) wnn_perror ());
++  printf (" bye.\n");
+   exit (1);
+ }
+ 
