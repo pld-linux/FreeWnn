@@ -1,5 +1,5 @@
---- FreeWnn-1.1.1-a013/Xsi/Wnn/jd/jserverrc.org	Tue May 30 18:19:37 2000
-+++ FreeWnn-1.1.1-a013/Xsi/Wnn/jd/jserverrc	Tue May 30 18:20:02 2000
+--- FreeWnn-1.1.1-a013/Wnn/jd/jserverrc.org	Tue May 30 18:19:37 2000
++++ FreeWnn-1.1.1-a013/Wnn/jd/jserverrc	Tue May 30 18:20:02 2000
 @@ -48,6 +48,8 @@
  readfile pubdic/tankan.dic
  readfile pubdic/bio.dic

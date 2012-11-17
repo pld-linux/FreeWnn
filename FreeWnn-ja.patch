@@ -1,6 +1,5 @@
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/etc/msg.c FreeWnn-1.1.1-a017/Xsi/Wnn/etc/msg.c
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/etc/msg.c	Tue Mar 21 01:31:33 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/etc/msg.c	Thu Jul  6 11:41:34 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/etc/msg.c	Tue Mar 21 01:31:33 2000
++++ FreeWnn-1.1.1-a017/Wnn/etc/msg.c	Thu Jul  6 11:41:34 2000
 @@ -457,12 +457,12 @@
  {
    struct msg_cat *cd;
@@ -17,9 +16,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/etc/msg.c FreeWnn-1.1.1-a017/Xsi/Wnn/et
    printf (msg_get (cd, 100, "message not found\n", "zh_CN"), "abc");
  }
  #endif /* not_use */
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/jd_sock.h FreeWnn-1.1.1-a017/Xsi/Wnn/include/jd_sock.h
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/jd_sock.h	Thu Feb 24 00:31:29 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/include/jd_sock.h	Thu Jul  6 11:43:16 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/include/jd_sock.h	Thu Feb 24 00:31:29 2000
++++ FreeWnn-1.1.1-a017/Wnn/include/jd_sock.h	Thu Jul  6 11:43:16 2000
 @@ -67,7 +67,7 @@
  #ifdef  JAPANESE                /* Japanese */
  # define WNN_PORT_IN    (0x5701)
@@ -38,9 +36,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/jd_sock.h FreeWnn-1.1.1-a017/Xs
  # define SERVERNAME     "wnn4"
  # define MESSAGE_FILE   "jserver.msg"
  #endif /* KOREAN */
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/jslib.h FreeWnn-1.1.1-a017/Xsi/Wnn/include/jslib.h
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/jslib.h	Thu Feb 24 00:31:30 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/include/jslib.h	Thu Jul  6 11:44:15 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/include/jslib.h	Thu Feb 24 00:31:30 2000
++++ FreeWnn-1.1.1-a017/Wnn/include/jslib.h	Thu Jul  6 11:44:15 2000
 @@ -394,8 +394,8 @@
  /*
    JSLIB function declaration
@@ -52,9 +49,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/jslib.h FreeWnn-1.1.1-a017/Xsi/
  
  extern WNN_JSERVER_ID *js_open_lang ();
  extern int js_close ();
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/msg.h FreeWnn-1.1.1-a017/Xsi/Wnn/include/msg.h
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/msg.h	Thu Feb 24 00:31:30 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/include/msg.h	Thu Jul  6 11:44:27 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/include/msg.h	Thu Feb 24 00:31:30 2000
++++ FreeWnn-1.1.1-a017/Wnn/include/msg.h	Thu Jul  6 11:44:27 2000
 @@ -50,7 +50,7 @@
  /*
  #define DEF_LANG "C"
@@ -64,9 +60,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/msg.h FreeWnn-1.1.1-a017/Xsi/Wn
  
  extern struct msg_cat *msg_open ();
  extern char *msg_get ();
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/wnn_config.h FreeWnn-1.1.1-a017/Xsi/Wnn/include/wnn_config.h
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/wnn_config.h	Thu Feb 24 00:31:30 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/include/wnn_config.h	Thu Jul  6 11:45:12 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/include/wnn_config.h	Thu Feb 24 00:31:30 2000
++++ FreeWnn-1.1.1-a017/Wnn/include/wnn_config.h	Thu Jul  6 11:45:12 2000
 @@ -44,7 +44,7 @@
  #define WNN_CSERVER_ENV         "CSERVER"
  #define WNN_KSERVER_ENV         "KSERVER"
@@ -103,9 +98,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/include/wnn_config.h FreeWnn-1.1.1-a017
  #endif /* HINSIDATA_FILE */
  
  #define USR_DIC_DIR_VAR "@USR"
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/jd/serverdefs FreeWnn-1.1.1-a017/Xsi/Wnn/jd/serverdefs
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/jd/serverdefs	Sun Jan 30 12:40:48 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/jd/serverdefs	Thu Jul  6 11:40:36 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/jd/serverdefs	Sun Jan 30 12:40:48 2000
++++ FreeWnn-1.1.1-a017/Wnn/jd/serverdefs	Thu Jul  6 11:40:36 2000
 @@ -30,7 +30,7 @@
  ;
  
@@ -115,9 +109,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/jd/serverdefs FreeWnn-1.1.1-a017/Xsi/Wn
  japanese	jserver		/tmp/jd_sockV4		wnn4		22273
  nihongo		jserver		/tmp/jd_sockV4		wnn4		22273
  zh_CN		cserver		/tmp/cd_sockV4		wnn4_Cn		22289
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/jlib/jl.c FreeWnn-1.1.1-a017/Xsi/Wnn/jlib/jl.c
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/jlib/jl.c	Tue Mar 21 01:21:12 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/jlib/jl.c	Thu Jul  6 11:46:00 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/jlib/jl.c	Tue Mar 21 01:21:12 2000
++++ FreeWnn-1.1.1-a017/Wnn/jlib/jl.c	Thu Jul  6 11:46:00 2000
 @@ -442,7 +442,7 @@
    if (!lang || !*lang)
      {
@@ -127,9 +120,8 @@ diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/jlib/jl.c FreeWnn-1.1.1-a017/Xsi/Wnn/jl
      }
    else
      {
-diff -uNr FreeWnn-1.1.1-a017.org/Xsi/Wnn/uum/header.c FreeWnn-1.1.1-a017/Xsi/Wnn/uum/header.c
---- FreeWnn-1.1.1-a017.org/Xsi/Wnn/uum/header.c	Thu Feb 24 00:31:42 2000
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/uum/header.c	Thu Jul  6 11:46:50 2000
+--- FreeWnn-1.1.1-a017.org/Wnn/uum/header.c	Thu Feb 24 00:31:42 2000
++++ FreeWnn-1.1.1-a017/Wnn/uum/header.c	Thu Jul  6 11:46:50 2000
 @@ -131,7 +131,7 @@
  
  FuncDataBase function_db[] = {

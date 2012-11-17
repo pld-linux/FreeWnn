@@ -1,0 +1,59 @@
+--- FreeWnn-1.1.1-a021/configure.in.orig	2005-11-27 18:30:23.000000000 +0100
++++ FreeWnn-1.1.1-a021/configure.in	2012-11-17 14:53:01.219812239 +0100
+@@ -359,9 +359,9 @@
+ dnl ### AC_CHECK_LIB(curses, main)
+ 
+ AC_SEARCH_LIBS(crypt, crypt)
+-AC_CHECK_LIB(socket, connect)
+-AC_CHECK_LIB(bind, getservbyname)
+-AC_CHECK_LIB(nsl, gethostbyname)
++AC_SEARCH_LIBS(socket, connect)
++AC_SEARCH_LIBS(getservbyname, bind)
++AC_SEARCH_LIBS(gethostbyname, nsl)
+ 
+ dnl
+ dnl Checks for header files.
+--- FreeWnn-1.1.1-a021/Wnn/jlib/Makefile.in.orig	2004-09-12 18:56:55.000000000 +0200
++++ FreeWnn-1.1.1-a021/Wnn/jlib/Makefile.in	2012-11-17 15:10:24.289790498 +0100
+@@ -101,7 +101,7 @@
+ all:: libwnn.la
+ 
+ libwnn.la: $(OBJS) $(EXTRALIBRARYDEPS)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(WNNJLIBVERSION)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(WNNJLIBVERSION) -lcrypt
+ 
+ lintlib:: llib-lwnn.ln
+ 
+--- FreeWnn-1.1.1-a021/Wnn/jlib.V3/Makefile.in.orig	2012-11-17 14:43:37.889823979 +0100
++++ FreeWnn-1.1.1-a021/Wnn/jlib.V3/Makefile.in	2012-11-17 15:10:42.919790109 +0100
+@@ -76,7 +76,7 @@
+ all:: libjd.la
+ 
+ libjd.la: $(OBJS) $(EXTRALIBRARYDEPS)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(WNNJLIBVERSION)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(WNNJLIBVERSION) -lcrypt
+ 
+ lintlib:: llib-ljd.ln
+ 
+--- FreeWnn-1.1.1-a021/cWnn/jlib/Makefile.in.orig	2004-09-12 18:56:55.000000000 +0200
++++ FreeWnn-1.1.1-a021/cWnn/jlib/Makefile.in	2012-11-17 15:10:58.336456455 +0100
+@@ -119,7 +119,7 @@
+ all:: libcwnn.la
+ 
+ libcwnn.la: $(OBJS) $(EXTRALIBRARYDEPS)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(CWNNJLIBVERSION)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(CWNNJLIBVERSION) -lcrypt
+ 
+ lintlib:: llib-lcwnn.ln
+ 
+--- FreeWnn-1.1.1-a021/kWnn/jlib/Makefile.in.orig	2004-09-12 18:56:55.000000000 +0200
++++ FreeWnn-1.1.1-a021/kWnn/jlib/Makefile.in	2012-11-17 15:11:12.683122821 +0100
+@@ -130,7 +130,7 @@
+ all:: libkwnn.la
+ 
+ libkwnn.la: $(OBJS) $(EXTRALIBRARYDEPS)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(KWNNJLIBVERSION)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(KWNNJLIBVERSION) -lcrypt
+ 
+ lintlib:: llib-lkwnn.ln
+ 

@@ -1,15 +1,15 @@
-%define upver	1.1.1
-%define alpha	018
 Summary:	FreeWnn Japanese Input System
 Summary(pl.UTF-8):	FreeWnn - system wprowadzania znaków japońskich
 Name:		FreeWnn
-Version:	%{upver}a%{alpha}
-Release:	1
-Epoch:		1
-License:	GPL
+Version:	1.1.1
+%define	subver	a021
+Release:	0.%{subver}.1
+Epoch:		2
+License:	LGPL v2+ (libraries), GPL v2+ (programs)
 Group:		Applications/System
-Source0:	ftp://ftp.freewnn.org/pub/FreeWnn/alpha/%{name}-%{upver}-a%{alpha}.tar.bz2
-# Source0-md5:	e4a56cd7373736c090c6b93a255b950b
+#Source0Download: http://sourceforge.jp/projects/freewnn/releases/
+Source0:	http://dl.sourceforge.jp/freewnn/17724/%{name}-%{version}-%{subver}.tar.bz2
+# Source0-md5:	7e15ab385932d58e3743400d303a05e6
 Source1:	%{name}.init
 Source2:	%{name}-cWnn.init
 Source3:	%{name}-tWnn.init
@@ -18,13 +18,17 @@ Patch0:		%{name}-fhs.patch
 Patch1:		%{name}-ja.patch
 Patch2:		%{name}-noroot.patch
 Patch3:		%{name}-jserverrc-g-jinmei.patch
-Patch4:		%{name}-includes.patch
-Patch5:		%{name}-reuid.patch
-Patch6:		%{name}-manpaths.patch
+Patch4:		%{name}-reuid.patch
+Patch5:		%{name}-manpaths.patch
+Patch6:		%{name}-libtool.patch
+Patch7:		%{name}-cpp.patch
+Patch8:		%{name}-install.patch
+Patch9:		%{name}-link.patch
 URL:		http://www.freewnn.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+BuildRequires:	libwrap-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
@@ -244,8 +248,7 @@ This package contains static version of kWnn library.
 Ten pakiet zawiera statyczną wersję biblioteki kWnn.
 
 %prep
-#%setup -q -n %{name}-%{upver}-a%{alpha}/Xsi
-%setup -q -n %{name}-%{upver}-a017-pl4
+%setup -q -n %{name}-%{version}-%{subver}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -253,27 +256,31 @@ Ten pakiet zawiera statyczną wersję biblioteki kWnn.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+
+cp -p Wnn-consortium/dic/README README.Wnn-consortium.dic
 
 %build
-cd Xsi
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 %configure
 
-%{__make} \
-	CDEBUGFLAGS="%{rpmcflags} -I/usr/include/ncurses"
+%{__make}
+#	CDEBUGFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-cd Xsi
 %{__make} install install.man \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# Makefile is missing for these manuals - install manually
+# Makefile is missing for en manuals - install manually
 for f in atod atof dtoa ; do
-	install Wnn/man.en/6.jutil/$f.man $RPM_BUILD_ROOT%{_mandir}/man1/$f.1
+	install -D Wnn/man.en/6.jutil/${f}.man $RPM_BUILD_ROOT%{_mandir}/man1/${f}.1
 done
 
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
@@ -286,8 +293,6 @@ ln -sf /var/lib/wnn/ja/dic $RPM_BUILD_ROOT%{_sysconfdir}/ja/dic
 ln -sf /var/lib/wnn/zh_CN/dic $RPM_BUILD_ROOT%{_sysconfdir}/zh_CN/dic
 ln -sf /var/lib/wnn/zh_TW/dic $RPM_BUILD_ROOT%{_sysconfdir}/zh_TW/dic
 ln -sf /var/lib/wnn/ko_KR/dic $RPM_BUILD_ROOT%{_sysconfdir}/ko_KR/dic
-
-mv -f Wnn-consortium/dic/README README.Wnn-consortium.dic
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -362,11 +367,8 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc Xsi/Contrib/dic/gerodic/GERODIC Xsi/PubdicPlus/PUBDICPLUS-README
-%doc Xsi/Wnn/manual.en
-%lang(ja) %doc Xsi/PubdicPlus/PUBDICPLUS-ERRATA Xsi/PubdicPlus/PUBDICPLUS-README.jp
-%lang(ja) %doc Xsi/README.Wnn-consortium.dic
-%lang(ja) %doc Xsi/Wnn/manual
+%doc Contrib/dic/gerodic/GERODIC PubdicPlus/PUBDICPLUS-README Wnn/manual.en
+%lang(ja) %doc PubdicPlus/{PUBDICPLUS-ERRATA,PUBDICPLUS-README.jp} Wnn/manual README.Wnn-consortium.dic
 %attr(754,root,root) /etc/rc.d/init.d/FreeWnn
 %attr(755,root,root) %{_bindir}/atod
 %attr(755,root,root) %{_bindir}/atof
@@ -378,34 +380,82 @@ fi
 %attr(755,root,root) %{_bindir}/wnnkill
 %attr(755,root,root) %{_bindir}/wnnstat
 %attr(755,root,root) %{_bindir}/wnntouch
-%{_mandir}/man1/[ad]*
-%lang(ja) %{_mandir}/ja/man[145]/*
-%dir /var/lib/wnn/ja
-%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic
-%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic/*
-%attr(664,root,wnn) /var/lib/wnn/ja/dic/*/*
+%{_mandir}/man1/atod.1*
+%{_mandir}/man1/atof.1*
+%{_mandir}/man1/dtoa.1*
+%lang(ja) %{_mandir}/ja/man1/atod.1*
+%lang(ja) %{_mandir}/ja/man1/atof.1*
+%lang(ja) %{_mandir}/ja/man1/dtoa.1*
+%lang(ja) %{_mandir}/ja/man1/jserver.1*
+%lang(ja) %{_mandir}/ja/man1/oldatonewa.1*
+%lang(ja) %{_mandir}/ja/man1/uum.1*
+%lang(ja) %{_mandir}/ja/man1/wddel.1*
+%lang(ja) %{_mandir}/ja/man1/wdreg.1*
+%lang(ja) %{_mandir}/ja/man1/wnnkill.1*
+%lang(ja) %{_mandir}/ja/man1/wnnstat.1*
+%lang(ja) %{_mandir}/ja/man1/wnntouch.1*
+%lang(ja) %{_mandir}/ja/man4/2a_ctrl.4*
+%lang(ja) %{_mandir}/ja/man4/2b_romkana.4*
+%lang(ja) %{_mandir}/ja/man4/cvt_key_tbl.4*
+%lang(ja) %{_mandir}/ja/man4/fzk.data.4*
+%lang(ja) %{_mandir}/ja/man4/fzk.u.4*
+%lang(ja) %{_mandir}/ja/man4/hinsi_data.4*
+%lang(ja) %{_mandir}/ja/man4/jserverrc.4*
+%lang(ja) %{_mandir}/ja/man4/mode.4*
+%lang(ja) %{_mandir}/ja/man4/serverdefs.4*
+%lang(ja) %{_mandir}/ja/man4/ujis_dic.4*
+%lang(ja) %{_mandir}/ja/man4/uumkey.4*
+%lang(ja) %{_mandir}/ja/man4/uumrc.4*
+%lang(ja) %{_mandir}/ja/man4/wnnenvrc.4*
+%lang(ja) %{_mandir}/ja/man5/pubdic.5*
+%lang(ja) %{_mandir}/ja/man5/usr_dic.5*
 %dir %{_sysconfdir}/ja
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/[hjluw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/hinsi.data
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/jserverrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/uumkey*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/uumrc*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ja/wnnenvrc*
+%{_sysconfdir}/ja/libwnn.msg
+%{_sysconfdir}/ja/uum.msg
+%{_sysconfdir}/ja/wnnstat.msg
 %{_sysconfdir}/ja/dic
 %{_sysconfdir}/ja/rk
 %{_sysconfdir}/ja/rk.vi
 %dir %{_sysconfdir}/lt_LN
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lt_LN/u*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lt_LN/uumkey*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lt_LN/uumrc*
+%{_sysconfdir}/lt_LN/uum.msg
 %{_sysconfdir}/lt_LN/rk
+%dir /var/lib/wnn/ja
+%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic
+%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic/gerodic
+%attr(664,root,wnn) /var/lib/wnn/ja/dic/gerodic/g-jinmei.dic
+%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic/pubdic
+%attr(664,root,wnn) /var/lib/wnn/ja/dic/pubdic/*.dic
+%attr(664,root,wnn) /var/lib/wnn/ja/dic/pubdic/*.fzk
+%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic/src
+%attr(664,root,wnn) /var/lib/wnn/ja/dic/src/fzk.*
+%attr(775,root,wnn) %dir /var/lib/wnn/ja/dic/wnncons
+%attr(664,root,wnn) /var/lib/wnn/ja/dic/wnncons/tankan*.dic
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libjd.so.*.*
-%attr(755,root,root) %{_libdir}/libwnn.so.*.*
+%attr(755,root,root) %{_libdir}/libjd.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libjd.so.0
+%attr(755,root,root) %{_libdir}/libwnn.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libwnn.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libjd.so
-%{_libdir}/libjd.la
 %attr(755,root,root) %{_libdir}/libwnn.so
+%{_libdir}/libjd.la
 %{_libdir}/libwnn.la
 %{_includedir}/wnn
-%lang(ja) %{_mandir}/ja/man3/*
+%lang(ja) %{_mandir}/ja/man3/jl_*.3*
+%lang(ja) %{_mandir}/ja/man3/js_*.3*
+%lang(ja) %{_mandir}/ja/man3/msg_*.3*
+%lang(ja) %{_mandir}/ja/man3/romkan_*.3*
 
 %files static
 %defattr(644,root,root,755)
@@ -414,12 +464,12 @@ fi
 
 %files common
 %defattr(644,root,root,755)
-%doc Xsi/CONTRIBUTORS Xsi/ChangeLog.en
-%doc Xsi/Xwnmo/manual.en
-%lang(ja) %doc Xsi/ChangeLog
-%lang(ja) %doc Xsi/Xwnmo/manual
+%doc CONTRIBUTORS ChangeLog.en Xwnmo/manual.en
+%lang(ja) %doc ChangeLog Xwnmo/manual
 %dir %{_sysconfdir}
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/[cs]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvt_key_empty
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvt_key_tbl*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/serverdefs
 %dir /var/lib/wnn
 
 %files -n cWnn
@@ -427,21 +477,29 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/cWnn
 %attr(755,root,root) %{_bindir}/cserver
 %dir %{_sysconfdir}/zh_CN
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/[cluw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/cixing.data
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/cserverrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/uumkey*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/uumrc*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/wnnenvrc*
+%{_sysconfdir}/zh_CN/libwnn.msg
+%{_sysconfdir}/zh_CN/uum.msg
+%{_sysconfdir}/zh_CN/wnnstat.msg
 %{_sysconfdir}/zh_CN/dic
 %{_sysconfdir}/zh_CN/rk
 %{_sysconfdir}/zh_CN/rk_p
 %{_sysconfdir}/zh_CN/rk_z
 %dir /var/lib/wnn/zh_CN
 %attr(775,root,wnn) %dir /var/lib/wnn/zh_CN/dic
-%attr(775,root,wnn) %dir /var/lib/wnn/zh_CN/dic/*
-%attr(664,root,wnn) /var/lib/wnn/zh_CN/dic/*/*
+%attr(775,root,wnn) %dir /var/lib/wnn/zh_CN/dic/sys
+%attr(664,root,wnn) /var/lib/wnn/zh_CN/dic/sys/*.dic
+%attr(664,root,wnn) /var/lib/wnn/zh_CN/dic/sys/full.con*
 %{_mandir}/man1/cserver.1*
 
 %files -n cWnn-common
 %defattr(644,root,root,755)
-%doc Xsi/cWnn/manual.en
-%lang(ja) %doc Xsi/cWnn/manual
+%doc cWnn/manual.en
+%lang(ja) %doc cWnn/manual
 %attr(755,root,root) %{_bindir}/catod
 %attr(755,root,root) %{_bindir}/catof
 %attr(755,root,root) %{_bindir}/cdtoa
@@ -450,12 +508,25 @@ fi
 %attr(755,root,root) %{_bindir}/cwnnkill
 %attr(755,root,root) %{_bindir}/cwnnstat
 %attr(755,root,root) %{_bindir}/cwnntouch
-%{_mandir}/man1/c[!s]*
-%{_mandir}/man4/c*
+%{_mandir}/man1/catod.1*
+%{_mandir}/man1/catof.1*
+%{_mandir}/man1/cdicsort.1*
+%{_mandir}/man1/cdtoa.1*
+%{_mandir}/man1/cuum.1*
+%{_mandir}/man1/cwddel.1*
+%{_mandir}/man1/cwdreg.1*
+%{_mandir}/man1/cwnnkill.1*
+%{_mandir}/man1/cwnnstat.1*
+%{_mandir}/man1/cwnntouch.1*
+%{_mandir}/man4/cenv.4*
+%{_mandir}/man4/ckey.4*
+%{_mandir}/man4/cst_end.4*
+%{_mandir}/man4/cwnn.4*
 
 %files -n cWnn-libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcwnn.so.*.*
+%attr(755,root,root) %{_libdir}/libcwnn.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libcwnn.so.0
 
 %files -n cWnn-devel
 %defattr(644,root,root,755)
@@ -472,15 +543,23 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/tWnn
 %attr(755,root,root) %{_bindir}/tserver
 %dir %{_sysconfdir}/zh_TW
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/[cltuw]*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/cixing.data
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/tserverrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/uumkey*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/uumrc*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/wnnenvrc*
+%{_sysconfdir}/zh_TW/libwnn.msg
+%{_sysconfdir}/zh_TW/uum.msg
+%{_sysconfdir}/zh_TW/wnnstat.msg
 %{_sysconfdir}/zh_TW/dic
 %{_sysconfdir}/zh_TW/rk
 %{_sysconfdir}/zh_TW/rk_p
 %{_sysconfdir}/zh_TW/rk_z
 %dir /var/lib/wnn/zh_TW
 %attr(775,root,wnn) %dir /var/lib/wnn/zh_TW/dic
-%attr(775,root,wnn) %dir /var/lib/wnn/zh_TW/dic/*
-%attr(664,root,wnn) /var/lib/wnn/zh_TW/dic/*/*
+%attr(775,root,wnn) %dir /var/lib/wnn/zh_TW/dic/sys
+%attr(664,root,wnn) /var/lib/wnn/zh_TW/dic/sys/*.dic
+%attr(664,root,wnn) /var/lib/wnn/zh_TW/dic/sys/full.con*
 
 %files -n kWnn
 %defattr(644,root,root,755)
@@ -495,16 +574,25 @@ fi
 %attr(755,root,root) %{_bindir}/kwnnstat
 %attr(755,root,root) %{_bindir}/kwnntouch
 %dir %{_sysconfdir}/ko_KR
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/hinsi.data
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/kserverrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/uumkey
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/uumrc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/wnnenvrc*
+%{_sysconfdir}/ko_KR/libwnn.msg
+%{_sysconfdir}/ko_KR/uum.msg
+%{_sysconfdir}/ko_KR/wnnstat.msg
 %{_sysconfdir}/ko_KR/dic
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/[hkluw]*
-%attr(775,root,wnn) %dir /var/lib/wnn/ko_KR/dic
-%attr(775,root,wnn) %dir /var/lib/wnn/ko_KR/dic/*
-%attr(664,root,wnn) /var/lib/wnn/ko_KR/dic/*/*
 %{_sysconfdir}/ko_KR/rk
+%attr(775,root,wnn) %dir /var/lib/wnn/ko_KR/dic
+%attr(775,root,wnn) %dir /var/lib/wnn/ko_KR/dic/sys
+%attr(664,root,wnn) /var/lib/wnn/ko_KR/dic/sys/*.dic
+%attr(664,root,wnn) /var/lib/wnn/ko_KR/dic/sys/full.fzk
 
 %files -n kWnn-libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkwnn.so.*.*
+%attr(755,root,root) %{_libdir}/libkwnn.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkwnn.so.0
 
 %files -n kWnn-devel
 %defattr(644,root,root,755)

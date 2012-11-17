@@ -1,54 +1,56 @@
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Contrib/dic/gerodic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Contrib/dic/gerodic/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Contrib/dic/gerodic/Makefile.in	Sun Jan 16 08:30:00 2000
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Contrib/dic/gerodic/Makefile.in	Sun Mar 10 12:20:30 2002
-@@ -62,9 +62,7 @@
+--- FreeWnn-1.1.1-a021/Contrib/dic/gerodic/Makefile.in.orig	2012-11-16 19:46:06.097913226 +0100
++++ FreeWnn-1.1.1-a021/Contrib/dic/gerodic/Makefile.in	2012-11-16 19:49:16.601242597 +0100
+@@ -43,7 +43,7 @@
+ 
+ 
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o ${WNNOWNER}
++LOCAL_INSTFLAGS =
+ 
+ #ATOD=${JWNNBINDIR}/atod
+ ATOD=${WNNJUTILSRC}/atod
+@@ -67,7 +67,6 @@
  install:: ${OBJ}
  	@if [ -d $(DESTDIR)$(GERODIR) ]; then set +x; \
  	else (set -x; $(MKDIRHIER) $(DESTDIR)$(GERODIR)); fi
 -	chown ${WNNOWNER} $(DESTDIR)$(GERODIR)
--	@INSTALL@ $(INSTALLFLAGS) $(INSTDATFLAGS) -o ${WNNOWNER} ${OBJ} $(DESTDIR)$(GERODIR)
--	${WNNTOUCH} $(DESTDIR)$(GERODIR)/${OBJ}
-+	@INSTALL@ $(INSTALLFLAGS) $(INSTDATFLAGS) ${OBJ} $(DESTDIR)$(GERODIR)
+ 	$(INSTALL) $(INSTDATFLAGS) $(LOCAL_INSTFLAGS) ${OBJ} $(DESTDIR)$(GERODIR)
+ 	${WNNTOUCH} $(DESTDIR)$(GERODIR)/${OBJ}
  
- clean::
- 	$(RM) ${OBJ}
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jserver/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jserver/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jserver/Makefile.in	Sun May 27 08:48:06 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jserver/Makefile.in	Sun Mar 10 12:20:58 2002
+--- FreeWnn-1.1.1-a021/Wnn/jserver/Makefile.in.orig	2012-11-16 19:46:06.101246559 +0100
++++ FreeWnn-1.1.1-a021/Wnn/jserver/Makefile.in	2012-11-16 19:49:41.477908774 +0100
 @@ -36,7 +36,7 @@
-  JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
-        INCLUDES = -I$(WNNINCLUDESRC) -I$(TOP)
-         DEFINES = $(WNNDEFINES) $(JSERVERDEFINES) $(WNNTERM)
--LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
+ top_builddir = @top_builddir@
+ 
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
-   SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(JWNNLANG)/jserverrc\"
-   HINSIDEFINES = -DHINSIDATA_FILE=\"/$(JWNNLANG)/hinsi.data\"
  
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jutil/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/jutil/Makefile.in	Fri Jun  1 18:13:57 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/jutil/Makefile.in	Sun Mar 10 12:21:25 2002
-@@ -35,7 +35,7 @@
+  JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
+        INCLUDES = -I$(WNNINCLUDESRC) -I$(top_builddir) -I$(srcdir)
+--- FreeWnn-1.1.1-a021/Wnn/jutil/Makefile.in.orig	2012-11-16 19:46:06.101246559 +0100
++++ FreeWnn-1.1.1-a021/Wnn/jutil/Makefile.in	2012-11-16 19:50:18.187907603 +0100
+@@ -37,7 +37,7 @@
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+ LT_INSTALL      = $(LIBTOOL) --mode=install $(INSTALL)
+ LT_LD           = $(LIBTOOL) --mode=link $(CCLINK)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
  
-        INCLUDES = -I$(WNNINCLUDESRC) -I$(TOP)
+        INCLUDES = -I$(WNNINCLUDESRC) -I$(top_builddir)
          DEFINES = $(WNNDEFINES) $(WNNLANGDEF)
--   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS) -o $(WNNOWNER)
-+   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS)
-     HINSIDEFINE = -DHINSIDATA_FILE=\"/$(JWNNLANG)/hinsi.data\"
+--- FreeWnn-1.1.1-a021/Wnn/pubdicplus/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
++++ FreeWnn-1.1.1-a021/Wnn/pubdicplus/Makefile.in	2012-11-16 19:50:33.974574401 +0100
+@@ -35,7 +35,7 @@
+  WNNJUTILOBJ = $(top_builddir)/Wnn/jutil
  
- CLIENTPROGRAMS = wnnstat wnnkill wddel wdreg
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/pubdicplus/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/pubdicplus/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/pubdicplus/Makefile.in	Sun May 27 08:48:14 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/pubdicplus/Makefile.in	Sun Mar 10 12:22:55 2002
-@@ -33,7 +33,7 @@
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
  
- INSTALL         = @INSTALL@
- 
--   INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
-+   INSTALLFLAGS = $(INSTLIBFLAGS)
-            ATOD = $(WNNJUTILSRC)/atod
-            ATOF = $(WNNJUTILSRC)/atof
-        WNNTOUCH = $(WNNJUTILSRC)/wnntouch
-@@ -371,8 +371,7 @@
+        INCLUDES = -I$(top_builddir)
+            ATOD = $(WNNJUTILOBJ)/atod
+@@ -377,8 +377,7 @@
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(JWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -58,31 +60,29 @@ diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/pubdicplus/Makefile.in FreeWnn-1.1
  	done
  
  install:: $(DIC)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/uum/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/uum/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/uum/Makefile.in	Fri Jun  1 18:14:24 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/uum/Makefile.in	Sun Mar 10 12:23:20 2002
-@@ -36,7 +36,7 @@
-        UUMOWNER = root
-        INCLUDES = -I$(WNNINCLUDESRC) -I$(WNNROMKANSRC) -I$(TOP)
-         DEFINES = $(SIGNAL_DEFINES) $(WNNDEFINES) $(WNNLANGDEF)
+--- FreeWnn-1.1.1-a021/Wnn/uum/Makefile.in.orig	2012-11-16 19:46:06.104579893 +0100
++++ FreeWnn-1.1.1-a021/Wnn/uum/Makefile.in	2012-11-16 19:50:54.297907224 +0100
+@@ -35,7 +35,7 @@
+        VPATH = @srcdir@
+ 
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
 -LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
-+LOCAL_INSTFLAGS =
- LOCAL_LIBRARIES = $(WNNJLIB) $(WNNCONVLIB)
++LOCAL_INSTFLAGS = $(INSTUIDFLAGS)
  
- SRC1= epilogue.c header.c kensaku.c kuten.c jis_in.c       prologue.c touroku.c jikouho.c jutil.c w_string.c       printf.c termio.c hinsi.c termcap.c       ttyfdslot.c setutmp.c redraw.c history.c key_bind.c       screen.c basic_op.c uif.c cursor.c jhlp.c       select_ele.c inspect.c wnnrc_op.c functions.c
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/wnncons/dic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/wnncons/dic/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/wnncons/dic/Makefile.in	Sun May 27 08:48:17 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Wnn/wnncons/dic/Makefile.in	Sun Mar 10 12:29:46 2002
+        UUMOWNER = root
+        INCLUDES = -I$(WNNINCLUDESRC) -I$(WNNROMKANSRC) -I$(top_builddir)
+--- FreeWnn-1.1.1-a021/Wnn/wnncons/dic/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a021/Wnn/wnncons/dic/Makefile.in	2012-11-16 19:51:15.051240552 +0100
 @@ -33,7 +33,7 @@
+ top_builddir = ../../..
  
- INSTALL         = @INSTALL@
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
  
--   INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
-+   INSTALLFLAGS = $(INSTLIBFLAGS)
             ATOD = $(WNNJUTILSRC)/atod
         WNNTOUCH = $(WNNJUTILSRC)/wnntouch
-           HINSI = @HINSI_DATA@
-@@ -73,8 +73,7 @@
+@@ -74,8 +74,7 @@
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(JWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -92,52 +92,40 @@ diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Wnn/wnncons/dic/Makefile.in FreeWnn-1.
  	done
  
  install:: $(DICS)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xjutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xjutil/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xjutil/Makefile.in	Sun Jan 16 07:52:41 2000
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xjutil/Makefile.in	Sun Mar 10 12:23:43 2002
-@@ -22,7 +22,7 @@
+--- FreeWnn-1.1.1-a021/Xwnmo/xjutil/Makefile.in.orig	2012-11-16 19:46:06.107913226 +0100
++++ FreeWnn-1.1.1-a021/Xwnmo/xjutil/Makefile.in	2012-11-16 19:52:15.237905547 +0100
+@@ -26,7 +26,7 @@
+ top_builddir = ../..
  
- include @top_srcdir@/makerule.mk
- 
--LOCAL_INSTFLAGS = $(INSTBINFLAGS) -o $(WNNOWNER)
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
+ 
         INCLUDES = -I. $(XWNMOINCLUDES) -I$(XWNMOSRC)
  
-         DEPLIBS = $(XWNMOJLIB)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xwnmo/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xwnmo/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/Xwnmo/xwnmo/Makefile.in	Sun Jan 16 07:52:41 2000
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/Xwnmo/xwnmo/Makefile.in	Sun Mar 10 12:27:02 2002
-@@ -22,7 +22,7 @@
+--- FreeWnn-1.1.1-a021/Xwnmo/xwnmo/Makefile.in.orig	2012-11-16 19:46:06.111246559 +0100
++++ FreeWnn-1.1.1-a021/Xwnmo/xwnmo/Makefile.in	2012-11-16 19:52:35.257905017 +0100
+@@ -26,7 +26,7 @@
+ top_builddir = ../..
  
- include @top_srcdir@/makerule.mk
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
  
--LOCAL_INSTFLAGS = $(INSTBINFLAGS) -o $(WNNOWNER)
-+LOCAL_INSTFLAGS = $(INSTBINFLAGS)
         INCLUDES = $(XWNMOINCLUDES)
  
-         DEPLIBS = $(XWNMOJLIB)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/cdic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/cdic/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/cdic/Makefile.in	Sun May 27 08:48:24 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/cdic/Makefile.in	Sun Mar 10 12:25:34 2002
-@@ -25,7 +25,7 @@
- include @top_srcdir@/makerule.mk
+--- FreeWnn-1.1.1-a021/cWnn/cdic/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
++++ FreeWnn-1.1.1-a021/cWnn/cdic/Makefile.in	2012-11-16 19:53:08.247904391 +0100
+@@ -31,7 +31,7 @@
+ CWNNJUTILOBJ = $(top_builddir)/cWnn/jutil
  
- INSTALL      = @INSTALL@
--INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
-+INSTALLFLAGS = $(INSTLIBFLAGS)
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
  
-         ATOD = $(CWNNJUTILSRC)/catod
-         ATOF = $(CWNNJUTILSRC)/catof
-@@ -34,7 +34,7 @@
- #       HINSI = ./cixing.data
-     FZK_FLAG =
- 
--   INSTALLFLAGS = -m 644 -o $(WNNOWNER)
-+   INSTALLFLAGS = -m 644
- 
- FULL = full.con
- FULLR = full.conR
-@@ -69,8 +69,7 @@
+         ATOD = $(CWNNJUTILOBJ)/catod
+         ATOF = $(CWNNJUTILOBJ)/catof
+@@ -85,8 +85,7 @@
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(CWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -147,52 +135,40 @@ diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/cdic/Makefile.in FreeWnn-1.1.1-a0
  	done
  
  install:: $(ALLTGT)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jserver/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jserver/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jserver/Makefile.in	Sun May 27 08:48:27 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jserver/Makefile.in	Sun Mar 10 12:26:01 2002
-@@ -36,7 +36,7 @@
+--- FreeWnn-1.1.1-a021/cWnn/jserver/Makefile.in.orig	2004-05-21 18:39:32.000000000 +0200
++++ FreeWnn-1.1.1-a021/cWnn/jserver/Makefile.in	2012-11-16 19:46:06.114579892 +0100
+@@ -38,7 +38,7 @@
   JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
-        INCLUDES = -I$(CWNNINCLUDESRC) -I$(TOP)
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(top_builddir)
          DEFINES = $(CWNNDEFINES) $(JSERVERDEFINES) $(WNNTERM) $(CWNNLANGDEF)
 -LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
    SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(CWNNLANG)/cserverrc\"
      HINSIDEFINE = -DHINSIDATA_FILE=\"/$(CWNNLANG)/cixing.data\"
   TSERVERINITDEF = -DSERVER_INIT_FILE=\"/$(TWNNLANG)/tserverrc\"
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jutil/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/jutil/Makefile.in	Fri Jun  1 18:14:28 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/jutil/Makefile.in	Sun Mar 10 12:26:22 2002
-@@ -32,7 +32,7 @@
- include @top_srcdir@/makerule.mk
+--- FreeWnn-1.1.1-a021/cWnn/jutil/Makefile.in.orig	2012-11-16 19:46:06.114579892 +0100
++++ FreeWnn-1.1.1-a021/cWnn/jutil/Makefile.in	2012-11-16 19:53:19.394570865 +0100
+@@ -36,7 +36,7 @@
+ INSTALL         = @INSTALL@ $(INSTALLFLAGS)
+ LT_INSTALL      = $(LIBTOOL) --mode=install $(INSTALL)
+ LT_LD           = $(LIBTOOL) --mode=link $(CCLINK)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
  
- INSTALL      = @INSTALL@
--INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS) -o $(WNNOWNER)
-+INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS)
- 
-        INCLUDES = -I$(CWNNINCLUDESRC) -I$(TOP)
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(top_builddir)
          DEFINES = $(CWNNDEFINES) $(CWNNLANGDEF)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/tdic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/tdic/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/tdic/Makefile.in	Sun May 27 08:48:31 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/tdic/Makefile.in	Sun Mar 10 12:27:35 2002
-@@ -25,7 +25,7 @@
- include @top_srcdir@/makerule.mk
+--- FreeWnn-1.1.1-a021/cWnn/tdic/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
++++ FreeWnn-1.1.1-a021/cWnn/tdic/Makefile.in	2012-11-16 19:53:49.317903600 +0100
+@@ -31,7 +31,7 @@
+ CWNNJUTILOBJ = $(top_builddir)/cWnn/jutil
  
  INSTALL      = @INSTALL@
--INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
-+INSTALLFLAGS = $(INSTLIBFLAGS)
+-INSTALLFLAGS = -o $(WNNOWNER)
++INSTALLFLAGS =
  
-         ATOD = $(CWNNJUTILSRC)/catod
-         ATOF = $(CWNNJUTILSRC)/catof
-@@ -34,7 +34,7 @@
- #       HINSI = ./cixing.data
-     FZK_FLAG =
- 
--   INSTALLFLAGS = -m 644 -o $(WNNOWNER)
-+   INSTALLFLAGS = -m 644
- 
- FULL = full.con
- FULLR = full.conR
-@@ -69,8 +69,7 @@
+         ATOD = $(CWNNJUTILOBJ)/catod
+         ATOF = $(CWNNJUTILOBJ)/catof
+@@ -85,8 +85,7 @@
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(TWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -202,63 +178,51 @@ diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/tdic/Makefile.in FreeWnn-1.1.1-a0
  	done
  
  install:: $(ALLTGT)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/uum/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/uum/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/cWnn/uum/Makefile.in	Fri Jun  1 18:14:31 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/cWnn/uum/Makefile.in	Sun Mar 10 12:28:00 2002
-@@ -36,7 +36,7 @@
+--- FreeWnn-1.1.1-a021/cWnn/uum/Makefile.in.orig	2012-11-16 19:46:06.121246559 +0100
++++ FreeWnn-1.1.1-a021/cWnn/uum/Makefile.in	2012-11-16 19:54:31.347902697 +0100
+@@ -37,7 +37,7 @@
         UUMOWNER = root
-        INCLUDES = -I$(CWNNINCLUDESRC) -I$(CWNNROMKANSRC) -I$(TOP)
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(CWNNROMKANSRC) -I$(top_builddir)
          DEFINES = $(CWNNDEFINES) $(CWNNLANGDEF)
 -LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
 +LOCAL_INSTFLAGS =
- LOCAL_LIBRARIES = $(CWNNJLIB) $(CWNNCONVLIB)
+ LOCAL_LIBRARIES = $(CWNNJLIB) $(CWNNCONVLIB) @LIBS@
  
  HDRS= buffer.h cvtcode.h sdefine.h sheader.h
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jserver/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jserver/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jserver/Makefile.in	Sun May 27 08:48:37 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jserver/Makefile.in	Sun Mar 10 12:28:27 2002
-@@ -36,7 +36,7 @@
+--- FreeWnn-1.1.1-a021/kWnn/jserver/Makefile.in.orig	2004-05-21 18:39:32.000000000 +0200
++++ FreeWnn-1.1.1-a021/kWnn/jserver/Makefile.in	2012-11-16 19:46:06.121246559 +0100
+@@ -38,7 +38,7 @@
   JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
-        INCLUDES = -I$(KWNNJSERVERSRC) -I$(KWNNINCLUDESRC) -I$(TOP)
+        INCLUDES = -I$(KWNNJSERVERSRC) -I$(KWNNINCLUDESRC) -I$(top_builddir)
          DEFINES = $(KWNNDEFINES) $(JSERVERDEFINES) $(WNNTERM) $(KWNNLANGDEF)
 -LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
    SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(KWNNLANG)/kserverrc\"
      HINSIDEFINE = -DHINSIDATA_FILE=\"/$(KWNNLANG)/hinsi.data\"
+         WRAPLIB = @WRAPLIB@
+--- FreeWnn-1.1.1-a021/kWnn/jutil/Makefile.in.orig	2012-11-16 19:46:06.121246559 +0100
++++ FreeWnn-1.1.1-a021/kWnn/jutil/Makefile.in	2012-11-16 19:54:51.017902278 +0100
+@@ -39,7 +39,7 @@
  
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jutil/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jutil/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/jutil/Makefile.in	Fri Jun  1 18:14:43 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/jutil/Makefile.in	Sun Mar 10 12:28:39 2002
-@@ -35,7 +35,7 @@
- 
-        INCLUDES = -I$(KWNNINCLUDESRC) -I$(TOP)
+        INCLUDES = -I$(KWNNINCLUDESRC) -I$(top_builddir)
          DEFINES = $(KWNNDEFINES) $(KWNNLANGDEF)
--   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS) -o $(WNNOWNER)
-+   INSTALLFLAGS = $(INSTBINFLAGS) $(INSTPGMFLAGS)
+-LOCAL_INSTFLAGS = -o $(WNNOWNER)
++LOCAL_INSTFLAGS =
      HINSIDEFINE = -DHINSIDATA_FILE=\"/$(KWNNLANG)/hinsi.data\"
  
  CLIENTPROGRAMS = kwnnstat kwnnkill kwddel kwdreg
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/kdic/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/kdic/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/kdic/Makefile.in	Sun May 27 08:48:40 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/kdic/Makefile.in	Sun Mar 10 12:29:08 2002
-@@ -25,14 +25,14 @@
- include @top_srcdir@/makerule.mk
+--- FreeWnn-1.1.1-a021/kWnn/kdic/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
++++ FreeWnn-1.1.1-a021/kWnn/kdic/Makefile.in	2012-11-16 19:55:04.417902006 +0100
+@@ -31,7 +31,7 @@
+ KWNNJUTILOBJ = $(top_builddir)/kWnn/jutil
  
  INSTALL      = @INSTALL@
--INSTALLFLAGS = $(INSTLIBFLAGS) -o $(WNNOWNER)
-+INSTALLFLAGS = $(INSTLIBFLAGS)
-         ATOD = $(KWNNJUTILSRC)/katod
-         ATOF = $(KWNNJUTILSRC)/katof
-     WNNTOUCH = $(KWNNJUTILSRC)/kwnntouch
-        HINSI = @KHINSI_DATA@
-     FZK_FLAG =
+-INSTALLFLAGS = -o $(WNNOWNER)
++INSTALLFLAGS =
  
--   INSTALLFLAGS = -m 644 -o $(WNNOWNER)
-+   INSTALLFLAGS = -m 644
- 
- FULL = full.fzk
- 
-@@ -63,8 +63,7 @@
+         ATOD = $(KWNNJUTILOBJ)/katod
+         ATOF = $(KWNNJUTILOBJ)/katof
+@@ -76,8 +76,7 @@
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(KWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -268,15 +232,14 @@ diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/kdic/Makefile.in FreeWnn-1.1.1-a0
  	done
  
  install:: $(ALLTGT)
-diff -Nur FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/uum/Makefile.in FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/uum/Makefile.in
---- FreeWnn-1.1.1-a017-pl4.orig/Xsi/kWnn/uum/Makefile.in	Fri Jun  1 18:14:45 2001
-+++ FreeWnn-1.1.1-a017-pl4/Xsi/kWnn/uum/Makefile.in	Sun Mar 10 12:29:19 2002
-@@ -36,7 +36,7 @@
+--- FreeWnn-1.1.1-a021/kWnn/uum/Makefile.in.orig	2012-11-16 19:46:06.124579892 +0100
++++ FreeWnn-1.1.1-a021/kWnn/uum/Makefile.in	2012-11-16 19:55:21.141234990 +0100
+@@ -37,7 +37,7 @@
         UUMOWNER = root
-        INCLUDES = -I$(KWNNINCLUDESRC) -I$(KWNNROMKANSRC) -I$(TOP)
+        INCLUDES = -I$(KWNNINCLUDESRC) -I$(KWNNROMKANSRC) -I$(top_builddir)
          DEFINES = $(KWNNDEFINES) $(KWNNLANGDEF)
 -LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
 +LOCAL_INSTFLAGS =
- LOCAL_LIBRARIES = $(KWNNJLIB) $(KWNNCONVLIB)
+ LOCAL_LIBRARIES = $(KWNNJLIB) $(KWNNCONVLIB) @LIBS@
  
  HDRS= buffer.h cvtcode.h sdefine.h sheader.h

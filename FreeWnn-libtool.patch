@@ -1,0 +1,76 @@
+--- FreeWnn-1.1.1-a021/Wnn/romkan/Makefile.in.orig	2002-03-30 10:34:45.000000000 +0100
++++ FreeWnn-1.1.1-a021/Wnn/romkan/Makefile.in	2012-11-16 22:01:54.311076705 +0100
+@@ -46,7 +46,7 @@
+ 
+ .c.o:
+ 	$(RM) $@
+-	$(LIBTOOL) $(CC) -c $(CFLAGS) $(_NOOP_) $<
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $(_NOOP_) $<
+ 
+ clean::
+ 	$(RM) -r .libs
+--- FreeWnn-1.1.1-a021/Wnn/jlib.V3/Makefile.in.orig	2003-05-11 20:31:44.000000000 +0200
++++ FreeWnn-1.1.1-a021/Wnn/jlib.V3/Makefile.in	2012-11-16 22:28:08.311043918 +0100
+@@ -71,12 +71,12 @@
+ 
+ .c.o:
+ 	$(RM) $@
+-	$(LIBTOOL) $(CC) -c $(CFLAGS) $(_NOOP_) $*.c
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $(_NOOP_) $*.c
+ 
+ all:: libjd.la
+ 
+ libjd.la: $(OBJS) $(EXTRALIBRARYDEPS)
+-	$(LIBTOOL) $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(WNNJLIBVERSION)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS:.o=.lo) -rpath $(WNNLIBDIR) -version-info $(WNNJLIBVERSION)
+ 
+ lintlib:: llib-ljd.ln
+ 
+@@ -87,7 +87,7 @@
+ install:: libjd.la
+ 	@if [ -d $(DESTDIR)$(WNNLIBDIR) ]; then set +x; \
+ 	else (set -x; $(MKDIRHIER) $(DESTDIR)$(WNNLIBDIR)); fi
+-	$(LIBTOOL) $(INSTALL) $(INSTLIBFLAGS) libjd.la $(DESTDIR)$(WNNLIBDIR)
++	$(LIBTOOL) --mode=install $(INSTALL) $(INSTLIBFLAGS) libjd.la $(DESTDIR)$(WNNLIBDIR)
+ 
+ install:: jlib.h
+ 	@if [ -d $(DESTDIR)$(JWNNINCDIR) ]; then set +x; \
+@@ -109,13 +109,13 @@
+ 	done
+ 
+ $(OBJ2) : $(SRC2)
+-	$(LIBTOOL) $(CC) -c $(CFLAGS)  $(WNNETCSRC)/`basename $@ .o`.c
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS)  $(WNNETCSRC)/`basename $@ .o`.c
+ 
+ $(OBJ3) : $(SRC3)
+-	$(LIBTOOL) $(CC) -c $(CFLAGS)  $(WNNETCSRC)/`basename $@ .o`.c
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS)  $(WNNETCSRC)/`basename $@ .o`.c
+ 
+ $(OBJ4) : $(SRC4)
+-	$(LIBTOOL) $(CC) -c $(CFLAGS)  $(WNNETCSRC)/`basename $@ .o`.c
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS)  $(WNNETCSRC)/`basename $@ .o`.c
+ 
+ depend:: .depend
+ 
+--- FreeWnn-1.1.1-a021/cWnn/romkan/Makefile.in.orig	2002-03-30 10:34:46.000000000 +0100
++++ FreeWnn-1.1.1-a021/cWnn/romkan/Makefile.in	2012-11-17 13:21:51.449926244 +0100
+@@ -48,7 +48,7 @@
+ 
+ .c.o:
+ 	$(RM) $@
+-	$(LIBTOOL) $(CC) -c $(CFLAGS) $(_NOOP_) $<
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $(_NOOP_) $<
+ 
+ clean::
+ 	$(RM) -r .libs
+--- FreeWnn-1.1.1-a021/kWnn/romkan/Makefile.in.orig	2002-03-30 10:34:46.000000000 +0100
++++ FreeWnn-1.1.1-a021/kWnn/romkan/Makefile.in	2012-11-17 14:06:00.029871041 +0100
+@@ -48,7 +48,7 @@
+ 
+ .c.o:
+ 	$(RM) $@
+-	$(LIBTOOL) $(CC) -c $(CFLAGS) $(_NOOP_) $<
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $(_NOOP_) $<
+ 
+ clean::
+ 	$(RM) -r .libs

@@ -1,6 +1,5 @@
-diff -Naur FreeWnn-1.1.1-a013.orig/Xsi/makerule.mk.in FreeWnn-1.1.1-a013/Xsi/makerule.mk.in
---- FreeWnn-1.1.1-a013.orig/Xsi/makerule.mk.in	Wed Sep 29 01:56:24 1999
-+++ FreeWnn-1.1.1-a013/Xsi/makerule.mk.in	Mon Jan 31 13:26:50 2000
+--- FreeWnn-1.1.1-a013.orig/makerule.mk.in	Wed Sep 29 01:56:24 1999
++++ FreeWnn-1.1.1-a013/makerule.mk.in	Mon Jan 31 13:26:50 2000
 @@ -113,7 +113,7 @@
           prefix = @prefix@
      exec_prefix = @exec_prefix@

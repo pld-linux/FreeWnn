@@ -1,18 +1,17 @@
---- FreeWnn-1.1.1-a017/Xsi/Wnn/jserver/de.c.orig	Mon Jan 22 18:30:25 2001
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/jserver/de.c	Mon Jan 22 18:31:43 2001
-@@ -213,7 +213,9 @@
- 
-   port = -1;
+--- FreeWnn-1.1.1-a021/Wnn/jserver/de.c.orig	2012-11-16 20:41:53.701176783 +0100
++++ FreeWnn-1.1.1-a021/Wnn/jserver/de.c	2012-11-16 20:45:47.327838583 +0100
+@@ -240,7 +240,8 @@
+   /* option default */
+   option_flag = (OPT_FORK & ~OPT_VERBOSE);
  
 -  setuid (geteuid ());
 +  setregid(getegid(), getegid());
 +  setreuid(geteuid(), geteuid());
-+
- /* check whether another jserver already exists. */
    get_options (argc, argv);
- #ifdef  CHINESE
---- FreeWnn-1.1.1-a017/Xsi/Wnn/uum/jhlp.c.orig	Mon Jan 22 18:28:06 2001
-+++ FreeWnn-1.1.1-a017/Xsi/Wnn/uum/jhlp.c	Mon Jan 22 18:32:53 2001
+   print_version();
+   log_debug("invoked as %s.", argv[0]);
+--- FreeWnn-1.1.1-a017/Wnn/uum/jhlp.c.orig	Mon Jan 22 18:28:06 2001
++++ FreeWnn-1.1.1-a017/Wnn/uum/jhlp.c	Mon Jan 22 18:32:53 2001
 @@ -1297,8 +1297,8 @@
        dup2 (ttypfd, 1);
        dup2 (ttypfd, 2);
