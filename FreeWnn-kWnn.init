@@ -35,7 +35,7 @@ start() {
 	if [ ! -f /var/lock/subsys/kWnn ]; then
 		msg_starting kWnn
 		rm -f /tmp/kd_sockV4
-		( su - wnn -s /bin/sh -c '/usr/bin/kserver' | grep "Finished" > /dev/null ) \
+		( su - wnn -s /bin/sh -c '/usr/sbin/kserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/kWnn || RETVAL=1

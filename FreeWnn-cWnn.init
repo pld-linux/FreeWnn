@@ -35,7 +35,7 @@ start() {
 	if [ ! -f /var/lock/subsys/cWnn ]; then
 		msg_starting cWnn
 		rm -f /tmp/cd_sockV4
-		( su - wnn -s /bin/sh -c '/usr/bin/cserver' | grep "Finished" > /dev/null ) \
+		( su - wnn -s /bin/sh -c '/usr/sbin/cserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cWnn || RETVAL=1

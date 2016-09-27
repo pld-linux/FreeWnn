@@ -1,50 +1,48 @@
---- FreeWnn-1.1.1-a013.orig/makerule.mk.in	Wed Sep 29 01:56:24 1999
-+++ FreeWnn-1.1.1-a013/makerule.mk.in	Mon Jan 31 13:26:50 2000
-@@ -113,7 +113,7 @@
-          prefix = @prefix@
+--- FreeWnn-1.1.1-a023/makerule.mk.in.orig	2013-06-06 20:24:38.000000000 +0200
++++ FreeWnn-1.1.1-a023/makerule.mk.in	2016-09-27 18:05:54.526987800 +0200
+@@ -136,7 +136,7 @@
      exec_prefix = @exec_prefix@
-          PREFIX = @prefix@
--      WNNWNNDIR = ${PREFIX}/lib/wnn
+          bindir = @bindir@
+         sbindir = @sbindir@
+-      WNNWNNDIR = $(exec_prefix)/lib/wnn
 +      WNNWNNDIR = /etc/FreeWnn
-       WNNBINDIR = ${PREFIX}/bin
+       WNNBINDIR = $(bindir)
+      WNNSBINDIR = @WNNSBINDIR@
        WNNINCDIR = @includedir@
-       WNNLIBDIR = @libdir@
-@@ -125,9 +125,9 @@
+@@ -157,12 +157,12 @@
+   WNNCONSDICSRC = $(IMTOP)/Wnn-consortium/dic
+ 
           WNNTOP = $(IMTOP)/Wnn
 -       JWNNLANG = ja_JP
 +       JWNNLANG = ja
       JWNNWNNDIR = $(WNNWNNDIR)/$(JWNNLANG)
--     JWNNBINDIR = $(WNNBINDIR)/Wnn4
-+     JWNNBINDIR = $(WNNBINDIR)
+      JWNNBINDIR = $(WNNBINDIR)$(JWNNSUBBINDIR)
+     JWNNSBINDIR = $(WNNSBINDIR)$(JWNNSUBBINDIR)
       JWNNINCDIR = $(WNNINCDIR)/wnn
 -     JWNNDICDIR = $(JWNNWNNDIR)/dic
 +     JWNNDICDIR = /var/lib/wnn/$(JWNNLANG)/dic
    JWNNPUBDICDIR = $(JWNNDICDIR)/pubdic
  JWNNWNNCONSDICDIR = $(JWNNDICDIR)/wnncons
    JWNNFZKSRCDIR = $(JWNNDICDIR)/src
-@@ -155,8 +155,8 @@
-        CWNNLANG = zh_CN
-      CWNNWNNDIR = $(WNNWNNDIR)/$(CWNNLANG)
+@@ -193,7 +193,7 @@
       CWNNINCDIR = $(WNNINCDIR)/cwnn
--     CWNNBINDIR = $(WNNBINDIR)/cWnn4
+      CWNNBINDIR = $(WNNBINDIR)$(CWNNSUBBINDIR)
+     CWNNSBINDIR = $(WNNSBINDIR)$(CWNNSUBBINDIR)
 -     CWNNDICDIR = $(CWNNWNNDIR)/dic
-+     CWNNBINDIR = $(WNNBINDIR)
 +     CWNNDICDIR = /var/lib/wnn/$(CWNNLANG)/dic
    CWNNSYSDICDIR = $(CWNNDICDIR)/sys
        CWNNCDSRC = $(CWNNTOP)/cd
      CWNNCDICSRC = $(CWNNTOP)/cdic
-@@ -178,8 +178,8 @@
-        KWNNLANG = ko_KR
-      KWNNWNNDIR = $(WNNWNNDIR)/$(KWNNLANG)
+@@ -217,7 +217,7 @@
       KWNNINCDIR = $(WNNINCDIR)/kwnn
--     KWNNBINDIR = $(WNNBINDIR)/kWnn4
+      KWNNBINDIR = $(WNNBINDIR)$(KWNNSUBBINDIR)
+     KWNNSBINDIR = $(WNNSBINDIR)$(KWNNSUBBINDIR)
 -     KWNNDICDIR = $(KWNNWNNDIR)/dic
-+     KWNNBINDIR = $(WNNBINDIR)
 +     KWNNDICDIR = /var/lib/wnn/$(KWNNLANG)/dic
    KWNNSYSDICDIR = $(KWNNDICDIR)/sys
        KWNNKDSRC = $(KWNNTOP)/kd
      KWNNKDICSRC = $(KWNNTOP)/kdic
-@@ -199,7 +199,7 @@
+@@ -237,7 +237,7 @@
  
         TWNNLANG = zh_TW
       TWNNWNNDIR = $(WNNWNNDIR)/$(TWNNLANG)

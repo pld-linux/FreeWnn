@@ -10,16 +10,16 @@
    get_options (argc, argv);
    print_version();
    log_debug("invoked as %s.", argv[0]);
---- FreeWnn-1.1.1-a017/Wnn/uum/jhlp.c.orig	Mon Jan 22 18:28:06 2001
-+++ FreeWnn-1.1.1-a017/Wnn/uum/jhlp.c	Mon Jan 22 18:32:53 2001
-@@ -1297,8 +1297,8 @@
-       dup2 (ttypfd, 1);
-       dup2 (ttypfd, 2);
- #else /* linux */
+--- FreeWnn-1.1.1-a023/Wnn/uum/jhlp.c.orig	2016-09-27 18:18:54.713645559 +0200
++++ FreeWnn-1.1.1-a023/Wnn/uum/jhlp.c	2016-09-27 18:37:20.170299605 +0200
+@@ -1661,8 +1661,8 @@
+       ioctl (ttyfd, TIOCSWINSZ, &win);
+ #endif
+ #ifdef linux
 -      setgid (getgid ());
 -      setuid (getuid ());
-+      setregid (getegid(), getegid());
-+      setreuid (geteuid(), geteuid());
-       close (0);
-       close (1);
-       close (2);
++      setregid (getegid (), getegid ());
++      setreuid (geteuid (), geteuid ());
+ #endif
+       execvp (cmdnm, argv);
+       uum_err ("exec fault.");

@@ -36,7 +36,7 @@ start() {
 	if [ ! -f /var/lock/subsys/FreeWnn ]; then
 		msg_starting FreeWnn
 		rm -f /tmp/jd_sockV4
-		( su - wnn -s /bin/sh -c '/usr/bin/jserver' | grep "Finished" > /dev/null ) \
+		( su - wnn -s /bin/sh -c '/usr/sbin/jserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/FreeWnn || RETVAL=1

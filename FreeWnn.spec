@@ -2,14 +2,14 @@ Summary:	FreeWnn Japanese Input System
 Summary(pl.UTF-8):	FreeWnn - system wprowadzania znaków japońskich
 Name:		FreeWnn
 Version:	1.1.1
-%define	subver	a021
-Release:	0.%{subver}.3
+%define	subver	a023
+Release:	0.%{subver}.1
 Epoch:		2
 License:	LGPL v2+ (libraries), GPL v2+ (programs)
 Group:		Applications/System
 #Source0Download: http://sourceforge.jp/projects/freewnn/releases/
-Source0:	http://dl.sourceforge.jp/freewnn/17724/%{name}-%{version}-%{subver}.tar.bz2
-# Source0-md5:	7e15ab385932d58e3743400d303a05e6
+Source0:	http://dl.sourceforge.jp/freewnn/63271/%{name}-%{version}-%{subver}.tar.bz2
+# Source0-md5:	c45660a76babef22995737ed45c16b4e
 Source1:	%{name}.init
 Source2:	%{name}-cWnn.init
 Source3:	%{name}-tWnn.init
@@ -20,11 +20,8 @@ Patch2:		%{name}-noroot.patch
 Patch3:		%{name}-jserverrc-g-jinmei.patch
 Patch4:		%{name}-reuid.patch
 Patch5:		%{name}-manpaths.patch
-Patch6:		%{name}-libtool.patch
-Patch7:		%{name}-cpp.patch
-Patch8:		%{name}-install.patch
-Patch9:		%{name}-link.patch
-Patch10:	%{name}-format.patch
+Patch6:		%{name}-install.patch
+Patch7:		%{name}-link.patch
 URL:		http://www.freewnn.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -258,9 +255,6 @@ Ten pakiet zawiera statyczną wersję biblioteki kWnn.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
 
 cp -p Wnn-consortium/dic/README README.Wnn-consortium.dic
 
@@ -268,8 +262,9 @@ cp -p Wnn-consortium/dic/README README.Wnn-consortium.dic
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
-CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-%configure
+CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
+%configure \
+	--disable-traditional-layout
 
 %{__make} -j1
 
@@ -374,13 +369,13 @@ fi
 %attr(755,root,root) %{_bindir}/atod
 %attr(755,root,root) %{_bindir}/atof
 %attr(755,root,root) %{_bindir}/dtoa
-%attr(755,root,root) %{_bindir}/jserver
 %attr(755,root,root) %{_bindir}/oldatonewa
 %attr(755,root,root) %{_bindir}/wddel
 %attr(755,root,root) %{_bindir}/wdreg
-%attr(755,root,root) %{_bindir}/wnnkill
-%attr(755,root,root) %{_bindir}/wnnstat
 %attr(755,root,root) %{_bindir}/wnntouch
+%attr(755,root,root) %{_sbindir}/jserver
+%attr(755,root,root) %{_sbindir}/wnnkill
+%attr(755,root,root) %{_sbindir}/wnnstat
 %{_mandir}/man1/atod.1*
 %{_mandir}/man1/atof.1*
 %{_mandir}/man1/dtoa.1*
@@ -476,7 +471,7 @@ fi
 %files -n cWnn
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/cWnn
-%attr(755,root,root) %{_bindir}/cserver
+%attr(755,root,root) %{_sbindir}/cserver
 %dir %{_sysconfdir}/zh_CN
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/cixing.data
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_CN/cserverrc
@@ -506,12 +501,11 @@ fi
 %attr(755,root,root) %{_bindir}/cdtoa
 %attr(755,root,root) %{_bindir}/cwddel
 %attr(755,root,root) %{_bindir}/cwdreg
-%attr(755,root,root) %{_bindir}/cwnnkill
-%attr(755,root,root) %{_bindir}/cwnnstat
 %attr(755,root,root) %{_bindir}/cwnntouch
+%attr(755,root,root) %{_sbindir}/cwnnkill
+%attr(755,root,root) %{_sbindir}/cwnnstat
 %{_mandir}/man1/catod.1*
 %{_mandir}/man1/catof.1*
-%{_mandir}/man1/cdicsort.1*
 %{_mandir}/man1/cdtoa.1*
 %{_mandir}/man1/cuum.1*
 %{_mandir}/man1/cwddel.1*
@@ -542,7 +536,7 @@ fi
 %files -n tWnn
 %defattr(644,root,root,755)
 %attr(754,root,root) /etc/rc.d/init.d/tWnn
-%attr(755,root,root) %{_bindir}/tserver
+%attr(755,root,root) %{_sbindir}/tserver
 %dir %{_sysconfdir}/zh_TW
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/cixing.data
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/zh_TW/tserverrc
@@ -568,12 +562,12 @@ fi
 %attr(755,root,root) %{_bindir}/katod
 %attr(755,root,root) %{_bindir}/katof
 %attr(755,root,root) %{_bindir}/kdtoa
-%attr(755,root,root) %{_bindir}/kserver
 %attr(755,root,root) %{_bindir}/kwddel
 %attr(755,root,root) %{_bindir}/kwdreg
-%attr(755,root,root) %{_bindir}/kwnnkill
-%attr(755,root,root) %{_bindir}/kwnnstat
 %attr(755,root,root) %{_bindir}/kwnntouch
+%attr(755,root,root) %{_sbindir}/kwnnkill
+%attr(755,root,root) %{_sbindir}/kwnnstat
+%attr(755,root,root) %{_sbindir}/kserver
 %dir %{_sysconfdir}/ko_KR
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/hinsi.data
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ko_KR/kserverrc

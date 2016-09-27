@@ -35,7 +35,7 @@ start() {
 	if [ ! -f /var/lock/subsys/tWnn ]; then
 		msg_starting tWnn
 		rm -f /tmp/td_sockV4
-		( su - wnn -s /bin/sh -c '/usr/bin/tserver' | grep "Finished" > /dev/null ) \
+		( su - wnn -s /bin/sh -c '/usr/sbin/tserver' | grep "Finished" > /dev/null ) \
 			&& ok || fail
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/tWnn

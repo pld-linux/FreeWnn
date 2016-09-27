@@ -60,17 +60,6 @@
  	done
  
  install:: $(DIC)
---- FreeWnn-1.1.1-a021/Wnn/uum/Makefile.in.orig	2012-11-16 19:46:06.104579893 +0100
-+++ FreeWnn-1.1.1-a021/Wnn/uum/Makefile.in	2012-11-16 19:50:54.297907224 +0100
-@@ -35,7 +35,7 @@
-        VPATH = @srcdir@
- 
- INSTALL         = @INSTALL@ $(INSTALLFLAGS)
--LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
-+LOCAL_INSTFLAGS = $(INSTUIDFLAGS)
- 
-        UUMOWNER = root
-        INCLUDES = -I$(WNNINCLUDESRC) -I$(WNNROMKANSRC) -I$(top_builddir)
 --- FreeWnn-1.1.1-a021/Wnn/wnncons/dic/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
 +++ FreeWnn-1.1.1-a021/Wnn/wnncons/dic/Makefile.in	2012-11-16 19:51:15.051240552 +0100
 @@ -33,7 +33,7 @@
@@ -178,17 +167,6 @@
  	done
  
  install:: $(ALLTGT)
---- FreeWnn-1.1.1-a021/cWnn/uum/Makefile.in.orig	2012-11-16 19:46:06.121246559 +0100
-+++ FreeWnn-1.1.1-a021/cWnn/uum/Makefile.in	2012-11-16 19:54:31.347902697 +0100
-@@ -37,7 +37,7 @@
-        UUMOWNER = root
-        INCLUDES = -I$(CWNNINCLUDESRC) -I$(CWNNROMKANSRC) -I$(top_builddir)
-         DEFINES = $(CWNNDEFINES) $(CWNNLANGDEF)
--LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
-+LOCAL_INSTFLAGS =
- LOCAL_LIBRARIES = $(CWNNJLIB) $(CWNNCONVLIB) @LIBS@
- 
- HDRS= buffer.h cvtcode.h sdefine.h sheader.h
 --- FreeWnn-1.1.1-a021/kWnn/jserver/Makefile.in.orig	2004-05-21 18:39:32.000000000 +0200
 +++ FreeWnn-1.1.1-a021/kWnn/jserver/Makefile.in	2012-11-16 19:46:06.121246559 +0100
 @@ -38,7 +38,7 @@
@@ -232,14 +210,3 @@
  	done
  
  install:: $(ALLTGT)
---- FreeWnn-1.1.1-a021/kWnn/uum/Makefile.in.orig	2012-11-16 19:46:06.124579892 +0100
-+++ FreeWnn-1.1.1-a021/kWnn/uum/Makefile.in	2012-11-16 19:55:21.141234990 +0100
-@@ -37,7 +37,7 @@
-        UUMOWNER = root
-        INCLUDES = -I$(KWNNINCLUDESRC) -I$(KWNNROMKANSRC) -I$(top_builddir)
-         DEFINES = $(KWNNDEFINES) $(KWNNLANGDEF)
--LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(UUMOWNER)
-+LOCAL_INSTFLAGS =
- LOCAL_LIBRARIES = $(KWNNJLIB) $(KWNNCONVLIB) @LIBS@
- 
- HDRS= buffer.h cvtcode.h sdefine.h sheader.h
