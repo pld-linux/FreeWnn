@@ -1,6 +1,7 @@
---- FreeWnn-1.1.1-a021/Contrib/dic/gerodic/Makefile.in.orig	2012-11-16 19:46:06.097913226 +0100
-+++ FreeWnn-1.1.1-a021/Contrib/dic/gerodic/Makefile.in	2012-11-16 19:49:16.601242597 +0100
-@@ -43,7 +43,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Contrib/dic/gerodic/Makefile.in FreeWnn-1.1.1-a023/Contrib/dic/gerodic/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Contrib/dic/gerodic/Makefile.in	2006-05-28 18:37:02.000000000 +0200
++++ FreeWnn-1.1.1-a023/Contrib/dic/gerodic/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -46,7 +46,7 @@ top_builddir = @top_builddir@
  
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -8,8 +9,8 @@
 +LOCAL_INSTFLAGS =
  
  #ATOD=${JWNNBINDIR}/atod
- ATOD=${WNNJUTILSRC}/atod
-@@ -67,7 +67,6 @@
+ ATOD=${WNNJUTILOBJ}/atod
+@@ -70,7 +70,6 @@ $(OBJ): $(SRC)
  install:: ${OBJ}
  	@if [ -d $(DESTDIR)$(GERODIR) ]; then set +x; \
  	else (set -x; $(MKDIRHIER) $(DESTDIR)$(GERODIR)); fi
@@ -17,9 +18,10 @@
  	$(INSTALL) $(INSTDATFLAGS) $(LOCAL_INSTFLAGS) ${OBJ} $(DESTDIR)$(GERODIR)
  	${WNNTOUCH} $(DESTDIR)$(GERODIR)/${OBJ}
  
---- FreeWnn-1.1.1-a021/Wnn/jserver/Makefile.in.orig	2012-11-16 19:46:06.101246559 +0100
-+++ FreeWnn-1.1.1-a021/Wnn/jserver/Makefile.in	2012-11-16 19:49:41.477908774 +0100
-@@ -36,7 +36,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/jserver/Makefile.in FreeWnn-1.1.1-a023/Wnn/jserver/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/jserver/Makefile.in	2010-07-11 12:18:17.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/jserver/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -36,7 +36,7 @@ include @top_builddir@/makerule.mk
  top_builddir = @top_builddir@
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -28,20 +30,22 @@
  
   JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
         INCLUDES = -I$(WNNINCLUDESRC) -I$(top_builddir) -I$(srcdir)
---- FreeWnn-1.1.1-a021/Wnn/jutil/Makefile.in.orig	2012-11-16 19:46:06.101246559 +0100
-+++ FreeWnn-1.1.1-a021/Wnn/jutil/Makefile.in	2012-11-16 19:50:18.187907603 +0100
-@@ -37,7 +37,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/jutil/Makefile.in FreeWnn-1.1.1-a023/Wnn/jutil/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/jutil/Makefile.in	2011-04-17 18:29:50.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/jutil/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -37,7 +37,7 @@ top_builddir = @top_builddir@
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  LT_INSTALL      = $(LIBTOOL) --mode=install $(INSTALL)
  LT_LD           = $(LIBTOOL) --mode=link $(CCLINK)
 -LOCAL_INSTFLAGS = -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
  
-        INCLUDES = -I$(WNNINCLUDESRC) -I$(top_builddir)
+        INCLUDES = -I$(top_builddir) @EXTWNNJINC@ -I$(WNNINCLUDESRC)
          DEFINES = $(WNNDEFINES) $(WNNLANGDEF)
---- FreeWnn-1.1.1-a021/Wnn/pubdicplus/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/pubdicplus/Makefile.in	2012-11-16 19:50:33.974574401 +0100
-@@ -35,7 +35,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/pubdicplus/Makefile.in FreeWnn-1.1.1-a023/Wnn/pubdicplus/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/pubdicplus/Makefile.in	2013-11-22 11:53:01.000000000 +0100
++++ FreeWnn-1.1.1-a023/Wnn/pubdicplus/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -35,7 +35,7 @@ top_builddir = @top_builddir@
   WNNJUTILOBJ = $(top_builddir)/Wnn/jutil
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -50,7 +54,7 @@
  
         INCLUDES = -I$(top_builddir)
             ATOD = $(WNNJUTILOBJ)/atod
-@@ -377,8 +377,7 @@
+@@ -281,8 +281,7 @@ instserver:: install
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(JWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -60,9 +64,10 @@
  	done
  
  install:: $(DIC)
---- FreeWnn-1.1.1-a021/Wnn/wnncons/dic/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/wnncons/dic/Makefile.in	2012-11-16 19:51:15.051240552 +0100
-@@ -33,7 +33,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/wnncons/dic/Makefile.in FreeWnn-1.1.1-a023/Wnn/wnncons/dic/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/wnncons/dic/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/wnncons/dic/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -33,7 +33,7 @@ include @top_srcdir@/makerule.mk
  top_builddir = ../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -71,7 +76,7 @@
  
             ATOD = $(WNNJUTILSRC)/atod
         WNNTOUCH = $(WNNJUTILSRC)/wnntouch
-@@ -74,8 +74,7 @@
+@@ -74,8 +74,7 @@ instserver:: install
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(JWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -81,9 +86,10 @@
  	done
  
  install:: $(DICS)
---- FreeWnn-1.1.1-a021/Xwnmo/xjutil/Makefile.in.orig	2012-11-16 19:46:06.107913226 +0100
-+++ FreeWnn-1.1.1-a021/Xwnmo/xjutil/Makefile.in	2012-11-16 19:52:15.237905547 +0100
-@@ -26,7 +26,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Xwnmo/xjutil/Makefile.in FreeWnn-1.1.1-a023/Xwnmo/xjutil/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Xwnmo/xjutil/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Xwnmo/xjutil/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -26,7 +26,7 @@ include @top_srcdir@/makerule.mk
  top_builddir = ../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -92,9 +98,10 @@
  
         INCLUDES = -I. $(XWNMOINCLUDES) -I$(XWNMOSRC)
  
---- FreeWnn-1.1.1-a021/Xwnmo/xwnmo/Makefile.in.orig	2012-11-16 19:46:06.111246559 +0100
-+++ FreeWnn-1.1.1-a021/Xwnmo/xwnmo/Makefile.in	2012-11-16 19:52:35.257905017 +0100
-@@ -26,7 +26,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Xwnmo/xwnmo/Makefile.in FreeWnn-1.1.1-a023/Xwnmo/xwnmo/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Xwnmo/xwnmo/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Xwnmo/xwnmo/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -26,7 +26,7 @@ include @top_srcdir@/makerule.mk
  top_builddir = ../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -103,9 +110,10 @@
  
         INCLUDES = $(XWNMOINCLUDES)
  
---- FreeWnn-1.1.1-a021/cWnn/cdic/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
-+++ FreeWnn-1.1.1-a021/cWnn/cdic/Makefile.in	2012-11-16 19:53:08.247904391 +0100
-@@ -31,7 +31,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/cWnn/cdic/Makefile.in FreeWnn-1.1.1-a023/cWnn/cdic/Makefile.in
+--- FreeWnn-1.1.1-a023.org/cWnn/cdic/Makefile.in	2010-02-22 18:06:54.000000000 +0100
++++ FreeWnn-1.1.1-a023/cWnn/cdic/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -32,7 +32,7 @@ top_builddir = @top_builddir@
  CWNNJUTILOBJ = $(top_builddir)/cWnn/jutil
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
@@ -114,7 +122,7 @@
  
          ATOD = $(CWNNJUTILOBJ)/catod
          ATOF = $(CWNNJUTILOBJ)/catof
-@@ -85,8 +85,7 @@
+@@ -86,8 +86,7 @@ instserver:: install
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(CWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -124,31 +132,34 @@
  	done
  
  install:: $(ALLTGT)
---- FreeWnn-1.1.1-a021/cWnn/jserver/Makefile.in.orig	2004-05-21 18:39:32.000000000 +0200
-+++ FreeWnn-1.1.1-a021/cWnn/jserver/Makefile.in	2012-11-16 19:46:06.114579892 +0100
-@@ -38,7 +38,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/cWnn/jserver/Makefile.in FreeWnn-1.1.1-a023/cWnn/jserver/Makefile.in
+--- FreeWnn-1.1.1-a023.org/cWnn/jserver/Makefile.in	2013-09-02 13:01:40.000000000 +0200
++++ FreeWnn-1.1.1-a023/cWnn/jserver/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -39,7 +39,7 @@ INSTALL      = @INSTALL@ $(INSTALLFLAGS)
   JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
-        INCLUDES = -I$(CWNNINCLUDESRC) -I$(top_builddir)
+        INCLUDES = -I$(CWNNINCLUDESRC) -I$(top_builddir) -I$(srcdir)
          DEFINES = $(CWNNDEFINES) $(JSERVERDEFINES) $(WNNTERM) $(CWNNLANGDEF)
 -LOCAL_INSTFLAGS = $(INSTUIDFLAGS) -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
    SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(CWNNLANG)/cserverrc\"
      HINSIDEFINE = -DHINSIDATA_FILE=\"/$(CWNNLANG)/cixing.data\"
   TSERVERINITDEF = -DSERVER_INIT_FILE=\"/$(TWNNLANG)/tserverrc\"
---- FreeWnn-1.1.1-a021/cWnn/jutil/Makefile.in.orig	2012-11-16 19:46:06.114579892 +0100
-+++ FreeWnn-1.1.1-a021/cWnn/jutil/Makefile.in	2012-11-16 19:53:19.394570865 +0100
-@@ -36,7 +36,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/cWnn/jutil/Makefile.in FreeWnn-1.1.1-a023/cWnn/jutil/Makefile.in
+--- FreeWnn-1.1.1-a023.org/cWnn/jutil/Makefile.in	2011-04-17 18:29:50.000000000 +0200
++++ FreeWnn-1.1.1-a023/cWnn/jutil/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -36,7 +36,7 @@ top_builddir = @top_builddir@
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  LT_INSTALL      = $(LIBTOOL) --mode=install $(INSTALL)
  LT_LD           = $(LIBTOOL) --mode=link $(CCLINK)
 -LOCAL_INSTFLAGS = -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
  
-        INCLUDES = -I$(CWNNINCLUDESRC) -I$(top_builddir)
+        INCLUDES = -I$(top_builddir) @EXTCWNNJINC@ -I$(CWNNINCLUDESRC)
          DEFINES = $(CWNNDEFINES) $(CWNNLANGDEF)
---- FreeWnn-1.1.1-a021/cWnn/tdic/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
-+++ FreeWnn-1.1.1-a021/cWnn/tdic/Makefile.in	2012-11-16 19:53:49.317903600 +0100
-@@ -31,7 +31,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/cWnn/tdic/Makefile.in FreeWnn-1.1.1-a023/cWnn/tdic/Makefile.in
+--- FreeWnn-1.1.1-a023.org/cWnn/tdic/Makefile.in	2010-02-22 18:06:54.000000000 +0100
++++ FreeWnn-1.1.1-a023/cWnn/tdic/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -32,7 +32,7 @@ top_builddir = @top_builddir@
  CWNNJUTILOBJ = $(top_builddir)/cWnn/jutil
  
  INSTALL      = @INSTALL@
@@ -157,7 +168,7 @@
  
          ATOD = $(CWNNJUTILOBJ)/catod
          ATOF = $(CWNNJUTILOBJ)/catof
-@@ -85,8 +85,7 @@
+@@ -86,8 +86,7 @@ instserver:: install
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(TWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \
@@ -167,9 +178,10 @@
  	done
  
  install:: $(ALLTGT)
---- FreeWnn-1.1.1-a021/kWnn/jserver/Makefile.in.orig	2004-05-21 18:39:32.000000000 +0200
-+++ FreeWnn-1.1.1-a021/kWnn/jserver/Makefile.in	2012-11-16 19:46:06.121246559 +0100
-@@ -38,7 +38,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/kWnn/jserver/Makefile.in FreeWnn-1.1.1-a023/kWnn/jserver/Makefile.in
+--- FreeWnn-1.1.1-a023.org/kWnn/jserver/Makefile.in	2010-07-11 12:18:17.000000000 +0200
++++ FreeWnn-1.1.1-a023/kWnn/jserver/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -38,7 +38,7 @@ INSTALL      = @INSTALL@
   JSERVERDEFINES = -DJSERVER -DWRITE_CHECK
         INCLUDES = -I$(KWNNJSERVERSRC) -I$(KWNNINCLUDESRC) -I$(top_builddir)
          DEFINES = $(KWNNDEFINES) $(JSERVERDEFINES) $(WNNTERM) $(KWNNLANGDEF)
@@ -178,20 +190,22 @@
    SERVERINITDEF = -DSERVER_INIT_FILE=\"/$(KWNNLANG)/kserverrc\"
      HINSIDEFINE = -DHINSIDATA_FILE=\"/$(KWNNLANG)/hinsi.data\"
          WRAPLIB = @WRAPLIB@
---- FreeWnn-1.1.1-a021/kWnn/jutil/Makefile.in.orig	2012-11-16 19:46:06.121246559 +0100
-+++ FreeWnn-1.1.1-a021/kWnn/jutil/Makefile.in	2012-11-16 19:54:51.017902278 +0100
-@@ -39,7 +39,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/kWnn/jutil/Makefile.in FreeWnn-1.1.1-a023/kWnn/jutil/Makefile.in
+--- FreeWnn-1.1.1-a023.org/kWnn/jutil/Makefile.in	2011-04-17 18:29:50.000000000 +0200
++++ FreeWnn-1.1.1-a023/kWnn/jutil/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -39,7 +39,7 @@ LT_LD           = $(LIBTOOL) --mode=link
  
-        INCLUDES = -I$(KWNNINCLUDESRC) -I$(top_builddir)
+        INCLUDES = -I$(top_builddir) @EXTKWNNJINC@ -I$(KWNNINCLUDESRC)
          DEFINES = $(KWNNDEFINES) $(KWNNLANGDEF)
 -LOCAL_INSTFLAGS = -o $(WNNOWNER)
 +LOCAL_INSTFLAGS =
      HINSIDEFINE = -DHINSIDATA_FILE=\"/$(KWNNLANG)/hinsi.data\"
  
- CLIENTPROGRAMS = kwnnstat kwnnkill kwddel kwdreg
---- FreeWnn-1.1.1-a021/kWnn/kdic/Makefile.in.orig	2004-04-24 20:56:40.000000000 +0200
-+++ FreeWnn-1.1.1-a021/kWnn/kdic/Makefile.in	2012-11-16 19:55:04.417902006 +0100
-@@ -31,7 +31,7 @@
+ CLIENTPROGRAMS = kwddel kwdreg
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/kWnn/kdic/Makefile.in FreeWnn-1.1.1-a023/kWnn/kdic/Makefile.in
+--- FreeWnn-1.1.1-a023.org/kWnn/kdic/Makefile.in	2010-02-22 18:06:55.000000000 +0100
++++ FreeWnn-1.1.1-a023/kWnn/kdic/Makefile.in	2023-02-02 20:00:31.846502039 +0100
+@@ -32,7 +32,7 @@ top_builddir = @top_builddir@
  KWNNJUTILOBJ = $(top_builddir)/kWnn/jutil
  
  INSTALL      = @INSTALL@
@@ -200,7 +214,7 @@
  
          ATOD = $(KWNNJUTILOBJ)/katod
          ATOF = $(KWNNJUTILOBJ)/katof
-@@ -76,8 +76,7 @@
+@@ -77,8 +77,7 @@ instserver:: install
  install::
  	@case '${MFLAGS}' in *[i]*) set +e;; esac;
  	@for i in $(KWNNDICDIR); do if [ -d $(DESTDIR)$$i ]; then \

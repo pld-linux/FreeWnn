@@ -1,17 +1,7 @@
---- FreeWnn-1.1.1-a021/makerule.mk.in.orig	2012-11-17 14:43:37.699823983 +0100
-+++ FreeWnn-1.1.1-a021/makerule.mk.in	2012-11-17 15:36:36.376424397 +0100
-@@ -44,6 +44,8 @@
- 
-            MANDIR = @mandir@/man$(MANSUFFIX)
-         LIBMANDIR = @mandir@/man$(LIBMANSUFFIX)
-+          JMANDIR = @mandir@/ja/man$(MANSUFFIX)
-+       JLIBMANDIR = @mandir@/ja/man$(LIBMANSUFFIX)
- 
-         MANSUFFIX = 1
-      LIBMANSUFFIX = 3
---- FreeWnn-1.1.1-a021/Wnn/man/2.env/dic/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/2.env/dic/Makefile.in	2012-11-17 15:40:28.603086222 +0100
-@@ -34,6 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/2.env/dic/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/2.env/dic/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/2.env/dic/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/2.env/dic/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -34,6 +34,7 @@ top_builddir = ../../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
@@ -19,9 +9,10 @@
  MANSUFFIX = 5
  
  all::
---- FreeWnn-1.1.1-a021/Wnn/man/2.env/wnn/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/2.env/wnn/Makefile.in	2012-11-17 15:41:07.563085411 +0100
-@@ -34,6 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/2.env/wnn/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/2.env/wnn/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/2.env/wnn/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/2.env/wnn/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -34,6 +34,7 @@ top_builddir = ../../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
@@ -29,9 +20,10 @@
  MANSUFFIX = 4
  
  install.man:: 2a_ctrl.man
---- FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/jl_lib/Makefile.in.orig	2001-09-16 16:20:17.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/jl_lib/Makefile.in	2012-11-17 15:41:36.536418141 +0100
-@@ -34,7 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/jl_lib/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/jl_lib/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/jl_lib/Makefile.in	2001-09-16 16:20:17.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/jl_lib/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -34,7 +34,7 @@ top_builddir = ../../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
@@ -40,9 +32,10 @@
  MANSUFFIX = $(LIBMANSUFFIX)
  
  install.man:: bun_suu.man
---- FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/js_lib/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/js_lib/Makefile.in	2012-11-17 15:41:55.896417735 +0100
-@@ -34,7 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/js_lib/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/js_lib/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/js_lib/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/js_lib/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -34,7 +34,7 @@ top_builddir = ../../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
@@ -51,9 +44,10 @@
  MANSUFFIX = $(LIBMANSUFFIX)
  
  all::
---- FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/misc_lib/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/misc_lib/Makefile.in	2012-11-17 15:42:07.269750834 +0100
-@@ -34,7 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/misc_lib/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/misc_lib/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/misc_lib/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/misc_lib/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -34,7 +34,7 @@ top_builddir = ../../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
@@ -62,9 +56,10 @@
  MANSUFFIX = $(LIBMANSUFFIX)
  
  install.man:: msg_open.man
---- FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/rk_lib/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/3.libwnn/rk_lib/Makefile.in	2012-11-17 15:42:28.299750394 +0100
-@@ -34,7 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/rk_lib/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/rk_lib/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/3.libwnn/rk_lib/Makefile.in	2001-08-14 15:43:21.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/3.libwnn/rk_lib/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -34,7 +34,7 @@ top_builddir = ../../../..
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
@@ -73,23 +68,37 @@
  MANSUFFIX = $(LIBMANSUFFIX)
  
  install.man:: rk_clear.man
---- FreeWnn-1.1.1-a021/Wnn/man/4.cmd/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/4.cmd/Makefile.in	2012-11-17 15:42:54.219749853 +0100
-@@ -34,6 +34,7 @@
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/4.cmd/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/4.cmd/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/4.cmd/Makefile.in	2010-07-11 12:18:17.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/4.cmd/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -35,6 +35,7 @@ top_builddir = @top_builddir@
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
 +MANDIR = $(JMANDIR)
  MANSUFFIX = 1
  
- install.man:: jserver.man
---- FreeWnn-1.1.1-a021/Wnn/man/6.jutil/Makefile.in.orig	2001-08-14 15:43:21.000000000 +0200
-+++ FreeWnn-1.1.1-a021/Wnn/man/6.jutil/Makefile.in	2012-11-17 15:43:15.059749419 +0100
-@@ -34,6 +34,7 @@
+ SERVER_MAN = jserver.man
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/man/6.jutil/Makefile.in FreeWnn-1.1.1-a023/Wnn/man/6.jutil/Makefile.in
+--- FreeWnn-1.1.1-a023.org/Wnn/man/6.jutil/Makefile.in	2010-07-11 12:18:17.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/man/6.jutil/Makefile.in	2023-02-02 20:01:12.676502036 +0100
+@@ -35,6 +35,7 @@ top_builddir = @top_builddir@
  
  INSTALL         = @INSTALL@ $(INSTALLFLAGS)
  
 +MANDIR = $(JMANDIR)
  MANSUFFIX = 1
  
- install.man:: atod.man
+ MANUALS = atod.man dtoa.man atof.man wddel.man wdreg.man wnntouch.man
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/makerule.mk.in FreeWnn-1.1.1-a023/makerule.mk.in
+--- FreeWnn-1.1.1-a023.org/makerule.mk.in	2023-02-02 20:01:12.163168702 +0100
++++ FreeWnn-1.1.1-a023/makerule.mk.in	2023-02-02 20:01:12.676502036 +0100
+@@ -48,6 +48,8 @@ all::
+ 
+            MANDIR = @mandir@/man$(MANSUFFIX)
+         LIBMANDIR = @mandir@/man$(LIBMANSUFFIX)
++          JMANDIR = @mandir@/ja/man$(MANSUFFIX)
++       JLIBMANDIR = @mandir@/ja/man$(LIBMANSUFFIX)
+ 
+         MANSUFFIX = 1
+      LIBMANSUFFIX = 3

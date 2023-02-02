@@ -1,8 +1,9 @@
---- FreeWnn-1.1.1-a013/Wnn/jd/jserverrc.org	Tue May 30 18:19:37 2000
-+++ FreeWnn-1.1.1-a013/Wnn/jd/jserverrc	Tue May 30 18:20:02 2000
-@@ -48,6 +48,8 @@
- readfile pubdic/tankan.dic
+diff -urNp -x '*.orig' FreeWnn-1.1.1-a023.org/Wnn/jd/jserverrc FreeWnn-1.1.1-a023/Wnn/jd/jserverrc
+--- FreeWnn-1.1.1-a023.org/Wnn/jd/jserverrc	2001-06-14 20:08:31.000000000 +0200
++++ FreeWnn-1.1.1-a023/Wnn/jd/jserverrc	2023-02-02 20:00:50.813168705 +0100
+@@ -43,6 +43,8 @@ readfile pubdic/tankan.dic
  readfile pubdic/bio.dic
+ readfile gerodic/g-jinmei.dic
  
 +readfile gerodic/g-jinmei.dic
 +
