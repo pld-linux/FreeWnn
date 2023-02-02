@@ -2,8 +2,9 @@ Summary:	FreeWnn Japanese Input System
 Summary(pl.UTF-8):	FreeWnn - system wprowadzania znaków japońskich
 Name:		FreeWnn
 Version:	1.1.1
+%define rel     2
 %define	subver	a023
-Release:	0.%{subver}.1
+Release:	0.%{subver}.%{rel}
 Epoch:		2
 License:	LGPL v2+ (libraries), GPL v2+ (programs)
 Group:		Applications/System
